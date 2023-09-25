@@ -2,12 +2,12 @@ import { Token } from "./Token";
 
 // Board class to draw and manage the game board
 export class Board {
-  private token: Token[][];
+  private board: Token[][];
   private rows: number = 6;
   private cols: number = 7;
 
   constructor() {
-    this.token = Array.from({ length: this.rows }, () =>
+    this.board = Array.from({ length: this.rows }, () =>
       Array(this.cols).fill(new Token(" "))
     );
   }
@@ -24,7 +24,7 @@ export class Board {
 
       rowString = "";
       for (let col = 0; col < this.cols; col++) {
-        const token = this.token[row][col].getSymbol();
+        const token = this.board[row][col].getSymbol();
         rowString += `| ${token} `;
       }
       rowString += "|";
@@ -54,9 +54,9 @@ export class Board {
       row < this.rows &&
       col >= 0 &&
       col < this.cols &&
-      this.token[row][col].getSymbol() === " "
+      this.board[row][col].getSymbol() === " "
     ) {
-      this.token[row][col] = token;
+      this.board[row][col] = token;
       return true;
     }
     return false;
