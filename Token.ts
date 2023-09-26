@@ -1,11 +1,11 @@
 export class Token {
-    private symbol: string;
-  
-    constructor(symbol: string) {
-      this.symbol = symbol;
+    private color: string;
+
+    constructor(color: string) {
+      this.color = color;
     }
   
-    getSymbol(): string {
-      return this.symbol;
+    getColor(): string {
+      return this.color;
     }
   }
