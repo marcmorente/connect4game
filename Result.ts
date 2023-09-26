@@ -16,10 +16,6 @@ export class Result {
         return this.isWinner() || this.isTie();
     }
 
-    getTurn(): Turn {
-        return this.turn;
-    }
-
     done(): boolean {
         if (this.isWinner()) {
             console.log(`${this.turn.getCurrentPlayer().getName()} ${this.turn.getCurrentPlayer().getColor()} wins!`);

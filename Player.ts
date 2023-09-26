@@ -7,11 +7,11 @@ export class Player {
         this.color = color;
     }
 
-    getName() {
+    getName(): string {
         return this.name;
     }
 
-    getColor() {
+    getColor(): string {
         return this.color;
     }
 }

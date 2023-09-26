@@ -1,6 +1,5 @@
 import {Player} from "./Player";
 import {Board} from "./Board";
-import {Result} from "./Result";
 import {Interface} from "readline";
 import {Token} from "./Token";
 
@@ -10,7 +9,7 @@ export class Turn {
     private readonly turns: Record<number, Player>;
     private currentTurn: number;
 
-    constructor({ player1, player2 }: { player1: Player, player2: Player }, board: Board, readline: Interface) {
+    constructor({player1, player2}: { player1: Player, player2: Player }, board: Board, readline: Interface) {
         this.currentTurn = 0
         this.turns = {
             0: player1,
@@ -20,15 +19,15 @@ export class Turn {
         this.readline = readline;
     }
 
-    getBoard (): Board {
+    getBoard(): Board {
         return this.board;
     }
 
-    getCurrentPlayer (): Player {
+    getCurrentPlayer(): Player {
         return this.turns[this.currentTurn]
     }
 
-    switchPlayer (): void {
+    switchPlayer(): void {
         this.currentTurn = (this.currentTurn + 1) % 2
     }
 
@@ -36,7 +35,7 @@ export class Turn {
         let col: number;
         do {
             col = await this.promptUser();
-        } while (col+1 > this.board.getCols() || !this.board.placeToken(col, new Token(this.getCurrentPlayer().getColor())));
+        } while (col + 1 > this.board.getCols() || !this.board.placeToken(col, new Token(this.getCurrentPlayer().getColor())));
     }
 
     private async promptUser(): Promise<number> {

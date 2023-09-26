@@ -1,9 +1,8 @@
 import {Token} from "./Token";
 import {Color} from "./Color";
 
-// Board class to draw and manage the game board
 export class Board {
-    private board: Token[][];
+    private readonly board: Token[][];
     private rows: number = 6;
     private cols: number = 7;
 
@@ -139,7 +138,7 @@ export class Board {
         return null;
     }
 
-    getCols() {
+    getCols(): number {
         return this.cols;
     }
 }
