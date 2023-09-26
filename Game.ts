@@ -3,52 +3,39 @@ import {
     type Interface,
     type ReadLineOptions,
 } from "readline";
-import { Board } from "./Board";
-import { Token } from "./Token";
-import { Color } from "./Color";
+import {Board} from "./Board";
+import {Token} from "./Token";
+import {Color} from "./Color";
+import {Result} from "./Result";
+import {Player} from "./Player";
+import {Turn} from "./Turn";
 
 export class Game {
     private readonly reader: Interface;
-    private board: Board;
+    private readonly board: Board;
+    private result: Result;
+    private readonly turn: Turn;
+    private players = { player1: new Player('Player 1', Color.red), player2: new Player('Player 2', Color.yellow) }
 
     constructor(readLineOptions: ReadLineOptions) {
         this.reader = createInterface(readLineOptions);
         this.board = new Board();
+        this.turn = new Turn(this.players, this.board, this.reader);
+        this.result = new Result(this.turn);
     }
 
-    start(player: string = 'player 1', color: string = Color.red): void {
+    start(): void {
         this.board.draw();
-        
-        if (this.board.isFull()) {
-            console.log('It\'s a tie! No winner.');
+        if (this.result.done()) {
             this.reader.close();
             return;
         }
 
-        if (this.board.checkWinner() !== null) {
-            console.log(`Winner: ${this.board.checkWinner()}`);
-            this.reader.close();
-            return;
-        }
-        
-        console.log('');
-        console.log(`${player} (${color}) it's your turn!`);
-        try {
-
-            this.reader.question(`Enter column: `, (column: string) => {
-                if (column === "exit") {
-                    this.reader.close();
-                    return;
-                }
-                const col = parseInt(column, 10) - 1;
-
-                this.board.placeToken(col, new Token(color));
-
-                this.start(player === 'player 1' ? 'player 2' : 'player 1', color === Color.red ? Color.yellow : Color.red);
-            });
-        } catch (e) {
-            console.log(e);
-            this.start(player === 'player 1' ? 'player 2' : 'player 1', color === Color.red ? Color.yellow : Color.red);
-        }
+        this.turn.takeTurn().then(() => {
+            if (!this.result.isFinished()) {
+                this.turn.switchPlayer();
+            }
+            this.start();
+        });
     }
 }

@@ -1,11 +1,9 @@
 export class Token {
-    private color: string;
+    constructor(private readonly color: string) {
+        this.color = color;
+    }
 
-    constructor(color: string) {
-      this.color = color;
-    }
-  
     getColor(): string {
-      return this.color;
+        return this.color;
     }
-  }
+}

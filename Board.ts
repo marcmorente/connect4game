@@ -1,5 +1,5 @@
-import { Token } from "./Token";
-import { Color } from "./Color";
+import {Token} from "./Token";
+import {Color} from "./Color";
 
 // Board class to draw and manage the game board
 export class Board {
@@ -8,7 +8,7 @@ export class Board {
     private cols: number = 7;
 
     constructor() {
-        this.board = Array.from({ length: this.rows }, () =>
+        this.board = Array.from({length: this.rows}, () =>
             Array(this.cols).fill(new Token(Color.blank))
         );
     }
