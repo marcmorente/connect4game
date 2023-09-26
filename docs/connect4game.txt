@@ -1,0 +1,14 @@
+@startuml
+skin rose
+title Connect 4 Game
+class Game
+class Player
+class Board
+class Turn
+class Result
+Game *-- Board
+Game *-- Turn
+Game *-- Result
+Result *-- Board
+Turn *-- Player
+@enduml
