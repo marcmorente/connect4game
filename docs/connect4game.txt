@@ -9,6 +9,7 @@ class Result
 Game *-- Board
 Game *-- Turn
 Game *-- Result
-Result *-- Board
+Result *-- Turn
 Turn *-- Player
+Turn *-- Board
 @enduml
