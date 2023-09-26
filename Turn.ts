@@ -34,10 +34,9 @@ export class Turn {
 
     async takeTurn(): Promise<void> {
         let col: number;
-        const player: Player = this.getCurrentPlayer();
         do {
             col = await this.promptUser();
-        } while (!this.board.placeToken(col, new Token(player.getColor())));
+        } while (col+1 > this.board.getCols() || !this.board.placeToken(col, new Token(this.getCurrentPlayer().getColor())));
     }
 
     private async promptUser(): Promise<number> {

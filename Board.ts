@@ -138,5 +138,9 @@ export class Board {
         // If no winner is found, return null
         return null;
     }
+
+    getCols() {
+        return this.cols;
+    }
 }
 
