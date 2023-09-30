@@ -6,24 +6,25 @@ import {
 import {Board} from "./Board";
 import {Result} from "./Result";
 import {Turn} from "./Turn";
+import { View } from "./View";
 
 export class Game {
-    private readonly reader: Interface;
+    private readonly view: View;
     private readonly board: Board;
     private result: Result;
     private readonly turn: Turn;
 
-    constructor(readLineOptions: ReadLineOptions) {
-        this.reader = createInterface(readLineOptions);
+    constructor() {
+        this.view = new View();
         this.board = new Board();
-        this.turn = new Turn(this.board, this.reader);
+        this.turn = new Turn(this.board, this.view);
         this.result = new Result(this.turn);
     }
 
     start(): void {
         this.board.draw();
         if (this.result.done()) {
-            this.reader.close();
+            this.view.close();
             return;
         }
 
