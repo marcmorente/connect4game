@@ -1,12 +1,7 @@
-import {
-    createInterface,
-    type Interface,
-    type ReadLineOptions,
-} from "readline";
 import {Board} from "./Board";
 import {Result} from "./Result";
 import {Turn} from "./Turn";
-import { View } from "./View";
+import {View} from "./View";
 
 export class Game {
     private readonly view: View;
