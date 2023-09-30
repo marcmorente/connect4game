@@ -2,19 +2,17 @@ import {Player} from "./Player";
 import {Board} from "./Board";
 import {Interface} from "readline";
 import {Token} from "./Token";
+import {Color} from "./Color";
 
 export class Turn {
     private readonly board: Board;
     private readonly readline: Interface;
-    private readonly turns: Record<number, Player>;
+    private readonly turns: Array<Player>;
     private currentTurn: number;
 
-    constructor({player1, player2}: { player1: Player, player2: Player }, board: Board, readline: Interface) {
+    constructor(board: Board, readline: Interface) {
         this.currentTurn = 0
-        this.turns = {
-            0: player1,
-            1: player2
-        }
+        this.turns = [new Player('Player 1', Color.red), new Player('Player 2', Color.yellow)];
         this.board = board;
         this.readline = readline;
     }
@@ -24,11 +22,11 @@ export class Turn {
     }
 
     getCurrentPlayer(): Player {
-        return this.turns[this.currentTurn]
+        return this.turns[this.currentTurn];
     }
 
     switchPlayer(): void {
-        this.currentTurn = (this.currentTurn + 1) % 2
+        this.currentTurn = (this.currentTurn + 1) % 2;
     }
 
     async takeTurn(): Promise<void> {
@@ -40,7 +38,7 @@ export class Turn {
 
     private async promptUser(): Promise<number> {
         return new Promise<number>(resolve => {
-            this.readline.question(`${this.getCurrentPlayer().getName()}, what column do you want to place your token?: `, (col: string) => {
+            this.readline.question(`${this.getCurrentPlayer().getName()}, what column do you want to place your token?: `, (col: string): void => {
                 resolve(parseInt(col) - 1);
             });
         });

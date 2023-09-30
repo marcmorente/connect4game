@@ -4,9 +4,7 @@ import {
     type ReadLineOptions,
 } from "readline";
 import {Board} from "./Board";
-import {Color} from "./Color";
 import {Result} from "./Result";
-import {Player} from "./Player";
 import {Turn} from "./Turn";
 
 export class Game {
@@ -14,15 +12,11 @@ export class Game {
     private readonly board: Board;
     private result: Result;
     private readonly turn: Turn;
-    private players: { player1: Player, player2: Player } = {
-        player1: new Player('Player 1', Color.red),
-        player2: new Player('Player 2', Color.yellow)
-    }
 
     constructor(readLineOptions: ReadLineOptions) {
         this.reader = createInterface(readLineOptions);
         this.board = new Board();
-        this.turn = new Turn(this.players, this.board, this.reader);
+        this.turn = new Turn(this.board, this.reader);
         this.result = new Result(this.turn);
     }
 

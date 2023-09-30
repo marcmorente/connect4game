@@ -1,15 +1,21 @@
 @startuml
-skin rose
+skinparam classAttributeIconSize 0
 title Connect 4 Game
 class Game
 class Player
 class Board
+class Token
 class Turn
 class Result
+class Color
+
 Game *-- Board
 Game *-- Turn
 Game *-- Result
 Result *-- Turn
 Turn *-- Player
 Turn *-- Board
+Board o-- Token
+Token *-- Color
+Player --> Token
 @enduml

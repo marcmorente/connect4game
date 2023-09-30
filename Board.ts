@@ -12,19 +12,18 @@ export class Board {
         );
     }
 
-    // Function to draw the empty game board
     draw(): void {
-        for (let row = 0; row < this.rows; row++) {
-            let rowString = "";
-            for (let col = 0; col < this.cols; col++) {
+        for (let row: number = 0; row < this.rows; row++) {
+            let rowString: string = "";
+            for (let col: number = 0; col < this.cols; col++) {
                 rowString += "+----";
             }
             rowString += "+";
             console.log(rowString);
 
             rowString = "";
-            for (let col = 0; col < this.cols; col++) {
-                const token = this.board[row][col].getColor();
+            for (let col: number = 0; col < this.cols; col++) {
+                const token: string = this.board[row][col].getColor();
                 rowString += `| ${token} `;
             }
             rowString += "|";
@@ -32,23 +31,23 @@ export class Board {
         }
 
         // Draw the bottom border of the board
-        let bottomBorder = "";
-        for (let col = 0; col < this.cols; col++) {
+        let bottomBorder: string = "";
+        for (let col: number = 0; col < this.cols; col++) {
             bottomBorder += "+----";
         }
         bottomBorder += "+";
         console.log(bottomBorder);
 
         // Display centered column numbers
-        let columnNumbers = " ";
-        for (let col = 1; col <= this.cols; col++) {
+        let columnNumbers: string = " ";
+        for (let col: number = 1; col <= this.cols; col++) {
             columnNumbers += `  ${col}  `;
         }
         console.log(columnNumbers);
     }
 
     placeToken(col: number, token: Token): boolean {
-        let row = this.rows - 1;
+        let row: number = this.rows - 1;
 
         while (row >= 0 && this.board[row][col].getColor() !== Color.blank) {
             row--;
@@ -70,8 +69,8 @@ export class Board {
     }
 
     isFull(): boolean {
-        for (let row = 0; row < this.rows; row++) {
-            for (let col = 0; col < this.cols; col++) {
+        for (let row: number = 0; row < this.rows; row++) {
+            for (let col: number = 0; col < this.cols; col++) {
                 if (this.board[row][col].getColor() === Color.blank) {
                     return false;
                 }
@@ -82,10 +81,29 @@ export class Board {
     }
 
     checkWinner(): Color | null {
-        // Check rows for a winner
-        for (let row = 0; row < this.rows; row++) {
-            for (let col = 0; col < this.cols - 3; col++) {
-                const token = this.board[row][col].getColor();
+        if (this.checkRows() !== null) {
+            return this.checkRows();
+        }
+
+        if (this.checkCols() !== null) {
+            return this.checkCols();
+        }
+
+        if (this.checkDiagonal() !== null) {
+            return this.checkDiagonal();
+        }
+
+        if (this.checkInverseDiagonal() !== null) {
+            return this.checkInverseDiagonal();
+        }
+
+        return null;
+    }
+
+    checkRows(): Color | null {
+        for (let row: number = 0; row < this.rows; row++) {
+            for (let col: number = 0; col < this.cols - 3; col++) {
+                const token: string = this.board[row][col].getColor();
                 if (token !== Color.blank &&
                     token === this.board[row][col + 1].getColor() &&
                     token === this.board[row][col + 2].getColor() &&
@@ -95,10 +113,13 @@ export class Board {
             }
         }
 
-        // Check columns for a winner
-        for (let col = 0; col < this.cols; col++) {
-            for (let row = 0; row < this.rows - 3; row++) {
-                const token = this.board[row][col].getColor();
+        return null;
+    }
+
+    checkCols(): Color | null {
+        for (let col: number = 0; col < this.cols; col++) {
+            for (let row: number = 0; row < this.rows - 3; row++) {
+                const token: string = this.board[row][col].getColor();
                 if (token !== Color.blank &&
                     token === this.board[row + 1][col].getColor() &&
                     token === this.board[row + 2][col].getColor() &&
@@ -108,10 +129,13 @@ export class Board {
             }
         }
 
-        // Check diagonals (bottom-left to top-right) for a winner
-        for (let row = 3; row < this.rows; row++) {
-            for (let col = 0; col < this.cols - 3; col++) {
-                const token = this.board[row][col].getColor();
+        return null;
+    }
+
+    checkInverseDiagonal(): Color | null {
+        for (let row: number = 0; row < this.rows; row++) {
+            for (let col: number = 0; col < this.cols - 3; col++) {
+                const token: string = this.getToken(row, col).getColor()
                 if (token !== Color.blank &&
                     token === this.board[row - 1][col + 1].getColor() &&
                     token === this.board[row - 2][col + 2].getColor() &&
@@ -121,9 +145,12 @@ export class Board {
             }
         }
 
-        // Check diagonals (top-left to bottom-right) for a winner
-        for (let row = 0; row < this.rows - 3; row++) {
-            for (let col = 0; col < this.cols - 3; col++) {
+        return null;
+    }
+
+    checkDiagonal(): Color | null {
+        for (let row: number = 0; row < this.rows - 3; row++) {
+            for (let col: number = 0; col < this.cols - 3; col++) {
                 const token = this.board[row][col].getColor();
                 if (token !== Color.blank &&
                     token === this.board[row + 1][col + 1].getColor() &&
@@ -134,12 +161,15 @@ export class Board {
             }
         }
 
-        // If no winner is found, return null
         return null;
     }
 
     getCols(): number {
         return this.cols;
+    }
+
+    getToken(row: number, col: number): Token {
+        return this.board[row][col];
     }
 }
 
