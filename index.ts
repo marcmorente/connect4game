@@ -1,4 +1,4 @@
-import {Game} from "./Game";
+import {Game} from "./src/controller/Game";
 
 (function main(): void {
     new Game().start();

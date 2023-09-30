@@ -1,14 +1,14 @@
-import {Player} from "./Player";
-import {Board} from "./Board";
-import {Token} from "./Token";
-import {Color} from "./Color";
-import {View} from "./View";
+import {Player} from "../model/Player";
+import {Board} from "../model/Board";
+import {Token} from "../model/Token";
+import {Color} from "../model/Color";
+import {StandardCli} from "../view/StandardCli";
 
 export class Turn {
     private readonly turns: Array<Player>;
     private currentTurn: number = 0;
 
-    constructor(private readonly board: Board, private readonly view: View) {
+    constructor(private readonly board: Board, private readonly cli: StandardCli) {
         this.turns = [
             new Player('Player 1', Color.red),
             new Player('Player 2', Color.yellow)
@@ -30,7 +30,10 @@ export class Turn {
     async takeTurn(): Promise<void> {
         let col: number;
         do {
-            col = await this.view.promptUser(this);
+            col = parseInt(await this.cli.promptUser(
+                `${this.getCurrentPlayer().getName()}, what column do you want to place your token?: `
+            ));
+            col--;
         } while (
             col + 1 > this.board.getCols() ||
             !this.board.placeToken(

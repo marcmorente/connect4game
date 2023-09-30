@@ -133,7 +133,7 @@ export class Board {
     }
 
     checkInverseDiagonal(): Color | null {
-        for (let row: number = 0; row < this.rows; row++) {
+        for (let row: number = 3; row < this.rows; row++) {
             for (let col: number = 0; col < this.cols - 3; col++) {
                 const token: string = this.getToken(row, col).getColor()
                 if (token !== Color.blank &&
@@ -144,6 +144,18 @@ export class Board {
                 }
             }
         }
+
+        // for (let row = 3; row < this.rows; row++) {
+        //     for (let col = 0; col < this.cols - 3; col++) {
+        //         const token = this.board[row][col].getColor();
+        //         if (token !== Color.blank &&
+        //             token === this.board[row - 1][col + 1].getColor() &&
+        //             token === this.board[row - 2][col + 2].getColor() &&
+        //             token === this.board[row - 3][col + 3].getColor()) {
+        //             return token;
+        //         }
+        //     }
+        // }
 
         return null;
     }

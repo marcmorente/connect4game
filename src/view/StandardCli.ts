@@ -3,9 +3,8 @@ import {
     type Interface,
     type ReadLineOptions,
 } from "readline";
-import { Turn } from "./Turn";
 
-export class View {
+export class StandardCli {
     private readonly cli: Interface;
 
     constructor() {
@@ -16,13 +15,17 @@ export class View {
         this.cli = createInterface(readLineOptions);
     }
 
-    async promptUser(turn: Turn): Promise<number> {
-        return new Promise<number>(resolve => {
+    async promptUser(message: string): Promise<string> {
+        return new Promise<string>(resolve => {
             this.cli.question(
-                `${turn.getCurrentPlayer().getName()}, what column do you want to place your token?: `,
-                (col: string): void => resolve(parseInt(col) - 1)
+                message,
+                (input: string): void => resolve(input)
             );
         });
+    }
+
+    print(message: string): void {
+        this.cli.write(message);
     }
 
     close(): void {
