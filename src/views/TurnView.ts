@@ -36,7 +36,7 @@ export class TurnView implements TurnVisitor {
         return new Promise<void>((resolve) => {
             setTimeout(() => {
                 let col: number = Math.floor(Math.random() * 7);
-                console.log(`${player.getName()}(${player.getColor()}), has chosen column: ${col + 1}`);
+                this.cli.print(`${player.getName()}(${player.getColor()}), has chosen column: ${col + 1}`);
                 this.board.putToken(col, new Token(player.getColor()));
                 resolve();
             }, 300);

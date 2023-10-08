@@ -13,7 +13,7 @@ export class StandardCli {
     }
 
     print(message: string): void {
-        this.cli.write(message);
+        console.log(message);
     }
 
     close(): void {
