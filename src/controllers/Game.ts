@@ -13,7 +13,7 @@ export class Game {
     constructor() {
         this.cli = new StandardCli();
         this.board = new Board();
-        this.turn = new Turn(this.board, this.cli);
+        this.turn = new Turn(this.board);
         this.turnView = new TurnView(this.board, this.cli);
     }
 
