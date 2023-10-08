@@ -1,10 +1,9 @@
 import {HumanPlayer} from "../models/HumanPlayer";
 import {Board} from "../models/Board";
-import {Token} from "../models/Token";
 import {Color} from "../../types/Color";
 import {StandardCli} from "../views/StandardCli";
-import { BotPlayer } from "../models/BotPlayer";
-import { Player } from "../models/Player";
+import {BotPlayer} from "../models/BotPlayer";
+import {Player} from "../models/Player";
 
 export class Turn {
     private readonly players: Array<Player>;

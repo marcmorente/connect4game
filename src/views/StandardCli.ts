@@ -1,5 +1,5 @@
 import {createInterface, type Interface} from "readline/promises";
-import { stdin as input, stdout as output } from 'process';
+import {stdin as input, stdout as output} from 'process';
 
 export class StandardCli {
     private readonly cli: Interface;

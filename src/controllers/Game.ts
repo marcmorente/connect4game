@@ -1,8 +1,7 @@
 import {Board} from "../models/Board";
 import {Turn} from "./Turn";
 import {StandardCli} from "../views/StandardCli";
-import { Token } from "../models/Token";
-import { TurnView } from "../views/TurnView";
+import {TurnView} from "../views/TurnView";
 
 
 export class Game {
