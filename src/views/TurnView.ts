@@ -21,14 +21,13 @@ export class TurnView implements TurnVisitor {
       if (wrongcolumn) {
         this.cli.print('\nWrong column! Try again.\n')
       }
-      col = parseInt(await this.cli.promptUser(
-                `${player.getName()}(${player.getColor()}), choose column: `
-      ))
+      const message: string = `${player.getName()}(${player.getColor()}), choose column: `
+      col = parseInt(await this.cli.promptUser(message))
       col--
       wrongcolumn = true
     } while (
       this.board.isInvalidColumn(col) ||
-            !this.board.putToken(col, new Token(player.getColor()))
+      !this.board.putToken(col, new Token(player.getColor()))
     )
   }
 
