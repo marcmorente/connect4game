@@ -2,6 +2,8 @@ import { Board } from '../models/Board'
 import { Turn } from './Turn'
 import { StandardCli } from '../views/StandardCli'
 import { TurnView } from '../views/TurnView'
+import { GAME_MODE } from '../../types/GameMode'
+import { type Player } from '../models/Player'
 
 export class Game {
   private readonly cli: StandardCli
@@ -17,6 +19,9 @@ export class Game {
   }
 
   async start (): Promise<void> {
+    const mode = await this.turnView.selectMode()
+    const players: Player[] = GAME_MODE[mode]
+    this.turn.setPlayers(players)
     do {
       this.board.draw()
       await this.turnView.play(this.turn.getCurrentPlayer())

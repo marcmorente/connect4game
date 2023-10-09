@@ -3,11 +3,32 @@ import { type Player } from '../models/Player'
 import { Token } from '../models/Token'
 import { type StandardCli } from '../views/StandardCli'
 import { type TurnVisitor } from '../models/TurnVisitor'
+import { GAME_MODE } from '../../types/GameMode'
 
 export class TurnView implements TurnVisitor {
   constructor (private readonly board: Board, private readonly cli: StandardCli) {
     this.board = board
     this.cli = cli
+  }
+
+  async selectMode (): Promise<number> {
+    this.cli.print('Welcome to Connect 4!\n')
+    let mode: number = 0
+    do {
+      if (mode !== 0 && this.isInvalidMode(mode)) {
+        this.cli.print('\nInvalid mode! Try again.\n')
+      }
+      const message: string = 'Select one of the following modes:\n' +
+        '1. Human vs Human\n' +
+        '2. Human vs Bot\n' +
+        'Mode: '
+      mode = parseInt(await this.cli.promptUser(message)) - 1
+    } while (this.isInvalidMode(mode))
+    return mode
+  }
+
+  isInvalidMode (mode: number): boolean {
+    return GAME_MODE[mode] === undefined
   }
 
   async play (player: Player): Promise<void> {
