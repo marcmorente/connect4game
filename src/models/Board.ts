@@ -20,7 +20,7 @@ export class Board {
         for (let row: number = 0; row < this.rows; row++) {
             let rowString: string = "";
             for (let col: number = 0; col < this.cols; col++) {
-                rowString += this.board[row][col].getColor();
+                rowString += this.getToken(row, col).getColor();
             }
             console.log(rowString);
         }
@@ -43,7 +43,7 @@ export class Board {
     private findWinner(x: number, y: number): boolean {
         for (let row = 0; row < this.rows; row++) {
             for (let col = 0; col < this.cols; col++) {
-                const token = this.board[row][col].getColor();
+                const token = this.getToken(row, col).getColor();
                 if (token !== Color.BLANK) {
                     let consecutiveTokens = 0;
                     for (let i = 0; i < 4; i++) {
@@ -59,7 +59,7 @@ export class Board {
                         consecutiveTokens++;
                     }
                     if (consecutiveTokens === this.TOKENS_TO_WIN) {
-                        this.winner = this.board[row][col];
+                        this.winner = this.getToken(row, col).getColor();
                         return true;
                     }
                 }
@@ -79,7 +79,7 @@ export class Board {
     isTie(): boolean {
         for (let row: number = 0; row < this.rows; row++) {
             for (let col: number = 0; col < this.cols; col++) {
-                if (this.board[row][col].getColor() === Color.BLANK) {
+                if (this.getToken(row, col).getColor() === Color.BLANK) {
                     return false;
                 }
             }
@@ -89,7 +89,7 @@ export class Board {
 
     putToken(col: number, token: Token): boolean {
         let row: number = this.rows - 1;
-        while (row >= 0 && this.board[row][col].getColor() !== Color.BLANK) {
+        while (row >= 0 && this.getToken(row, col).getColor() !== Color.BLANK) {
             row--;
         }
         if (
@@ -97,7 +97,7 @@ export class Board {
             row < this.rows &&
             col >= 0 &&
             col < this.cols &&
-            this.board[row][col].getColor() === Color.BLANK
+            this.getToken(row, col).getColor() === Color.BLANK
         ) {
             this.board[row][col] = token;
             return true;
