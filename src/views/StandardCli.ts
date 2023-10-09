@@ -1,22 +1,22 @@
-import {createInterface, type Interface} from "readline/promises";
-import {stdin as input, stdout as output} from 'process';
+import { createInterface, type Interface } from 'readline/promises'
+import { stdin as input, stdout as output } from 'process'
 
 export class StandardCli {
-    private readonly cli: Interface;
+  private readonly cli: Interface
 
-    constructor() {
-        this.cli = createInterface({input, output});
-    }
+  constructor () {
+    this.cli = createInterface({ input, output })
+  }
 
-    async promptUser(message: string): Promise<string> {
-        return this.cli.question(message);
-    }
+  async promptUser (message: string): Promise<string> {
+    return await this.cli.question(message)
+  }
 
-    print(message: string): void {
-        console.log(message);
-    }
+  print (message: string): void {
+    console.log(message)
+  }
 
-    close(): void {
-        this.cli.close();
-    }
+  close (): void {
+    this.cli.close()
+  }
 }

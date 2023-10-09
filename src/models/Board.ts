@@ -1,124 +1,123 @@
-import {Token} from "./Token";
-import {Color} from "../../types/Color";
-import {Direction} from "../../types/Direction";
+import { Token } from './Token'
+import { Color } from '../../types/Color'
+import { Direction } from '../../types/Direction'
 
 export class Board {
-    private readonly TOKENS_TO_WIN: number = 4;
-    private board: Token[][];
-    private rows: number = 6;
-    private cols: number = 7;
-    private winner: Color | null = Color.NULL;
+  private readonly TOKENS_TO_WIN: number = 4
+  private readonly board: Token[][]
+  private readonly rows: number = 6
+  private readonly cols: number = 7
+  private winner: Color | null = Color.NULL
 
-    constructor() {
-        this.board = Array.from({length: this.rows}, () =>
-            Array(this.cols).fill(new Token(Color.BLANK))
-        );
+  constructor () {
+    this.board = Array.from({ length: this.rows }, () =>
+      Array(this.cols).fill(new Token(Color.BLANK))
+    )
+  }
+
+  draw (): void {
+    console.log('\n')
+    for (let row: number = 0; row < this.rows; row++) {
+      let rowString: string = ''
+      for (let col: number = 0; col < this.cols; col++) {
+        rowString += this.getToken(row, col).getColor()
+      }
+      console.log(rowString)
     }
-
-    draw(): void {
-        console.log("\n");
-        for (let row: number = 0; row < this.rows; row++) {
-            let rowString: string = "";
-            for (let col: number = 0; col < this.cols; col++) {
-                rowString += this.getToken(row, col).getColor();
-            }
-            console.log(rowString);
-        }
-        let columnNumbers: string = "";
-        for (let col: number = 1; col <= this.cols; col++) {
-            columnNumbers += `${col} `;
-        }
-        console.log(columnNumbers);
+    let columnNumbers: string = ''
+    for (let col: number = 1; col <= this.cols; col++) {
+      columnNumbers += `${col} `
     }
+    console.log(columnNumbers)
+  }
 
-    checkWinner(): Color | null {
-        for (const direction of Direction.ALL) {
-            if (this.findWinner(direction.x, direction.y)) {
-                return this.winner;
-            }
-        }
-        return null;
+  checkWinner (): Color | null {
+    for (const direction of Direction.ALL) {
+      if (this.findWinner(direction.x, direction.y)) {
+        return this.winner
+      }
     }
+    return null
+  }
 
-    private findWinner(x: number, y: number): boolean {
-        for (let row = 0; row < this.rows; row++) {
-            for (let col = 0; col < this.cols; col++) {
-                const token = this.getToken(row, col).getColor();
-                if (token !== Color.BLANK) {
-                    let consecutiveTokens = 0;
-                    for (let i = 0; i < 4; i++) {
-                        const nextRow = row + i * x;
-                        const nextCol = col + i * y;
-                        if (
-                            this.isInvalidRow(nextRow) ||
+  private findWinner (x: number, y: number): boolean {
+    for (let row = 0; row < this.rows; row++) {
+      for (let col = 0; col < this.cols; col++) {
+        const token = this.getToken(row, col).getColor()
+        if (token !== Color.BLANK) {
+          let consecutiveTokens = 0
+          for (let i = 0; i < 4; i++) {
+            const nextRow = row + i * x
+            const nextCol = col + i * y
+            if (
+              this.isInvalidRow(nextRow) ||
                             this.isInvalidColumn(nextCol) ||
                             this.board[nextRow][nextCol].getColor() !== token
-                        ) {
-                            break;
-                        }
-                        consecutiveTokens++;
-                    }
-                    if (consecutiveTokens === this.TOKENS_TO_WIN) {
-                        this.winner = this.getToken(row, col).getColor();
-                        return true;
-                    }
-                }
+            ) {
+              break
             }
+            consecutiveTokens++
+          }
+          if (consecutiveTokens === this.TOKENS_TO_WIN) {
+            this.winner = this.getToken(row, col).getColor()
+            return true
+          }
         }
-        return false;
+      }
     }
-    
-    isFinished(): boolean {
-        return this.isWinner() || this.isTie();
-    }
-    
-    isWinner(): boolean {
-        return this.checkWinner() !== null;
-    }
+    return false
+  }
 
-    isTie(): boolean {
-        for (let row: number = 0; row < this.rows; row++) {
-            for (let col: number = 0; col < this.cols; col++) {
-                if (this.getToken(row, col).getColor() === Color.BLANK) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
+  isFinished (): boolean {
+    return this.isWinner() || this.isTie()
+  }
 
-    putToken(col: number, token: Token): boolean {
-        let row: number = this.rows - 1;
-        while (row >= 0 && this.getToken(row, col).getColor() !== Color.BLANK) {
-            row--;
+  isWinner (): boolean {
+    return this.checkWinner() !== null
+  }
+
+  isTie (): boolean {
+    for (let row: number = 0; row < this.rows; row++) {
+      for (let col: number = 0; col < this.cols; col++) {
+        if (this.getToken(row, col).getColor() === Color.BLANK) {
+          return false
         }
-        if (
-            row >= 0 &&
+      }
+    }
+    return true
+  }
+
+  putToken (col: number, token: Token): boolean {
+    let row: number = this.rows - 1
+    while (row >= 0 && this.getToken(row, col).getColor() !== Color.BLANK) {
+      row--
+    }
+    if (
+      row >= 0 &&
             row < this.rows &&
             col >= 0 &&
             col < this.cols &&
             this.getToken(row, col).getColor() === Color.BLANK
-        ) {
-            this.board[row][col] = token;
-            return true;
-        }
-        return false;
+    ) {
+      this.board[row][col] = token
+      return true
     }
+    return false
+  }
 
-    isInvalidColumn(col: number): boolean {
-        return col < 0 || col >= this.cols || isNaN(col);
-    }
+  isInvalidColumn (col: number): boolean {
+    return col < 0 || col >= this.cols || isNaN(col)
+  }
 
-    isInvalidRow(row: number): boolean {
-        return row < 0 || row >= this.rows || isNaN(row);
-    }
+  isInvalidRow (row: number): boolean {
+    return row < 0 || row >= this.rows || isNaN(row)
+  }
 
-    getWinner(): Color | null {
-        return this.winner;
-    }
+  getWinner (): Color | null {
+    return this.winner
+  }
 
-    getToken(row: number, col: number): Token {
-        return this.board[row][col];
-    }
+  getToken (row: number, col: number): Token {
+    return this.board[row][col]
+  }
 }
-

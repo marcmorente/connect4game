@@ -1,7 +1,7 @@
-import {TurnVisitor} from "./TurnVisitor";
+import { type TurnVisitor } from './TurnVisitor'
 
 export interface Player {
-    getName(): string;
-    getColor(): string;
-    accept(visitor: TurnVisitor): Promise<void>;
+  getName: () => string
+  getColor: () => string
+  accept: (visitor: TurnVisitor) => Promise<void>
 }

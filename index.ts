@@ -1,5 +1,5 @@
-import {Game} from "./src/controllers/Game";
+import { Game } from './src/controllers/Game';
 
-(function main(): void {
-    new Game().start();
-}());
+(function main (): void {
+  void new Game().start()
+}())

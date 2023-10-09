@@ -1,6 +1,6 @@
-import {Player} from "./Player";
+import { type Player } from './Player'
 
 export interface TurnVisitor {
-    playHuman(player: Player): Promise<void>;
-    playBot(player: Player): Promise<void>;
+  playHuman: (player: Player) => Promise<void>
+  playBot: (player: Player) => Promise<void>
 }
