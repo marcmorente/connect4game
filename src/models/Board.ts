@@ -7,7 +7,7 @@ export class Board {
   private readonly board: Token[][]
   private readonly rows: number = 6
   private readonly cols: number = 7
-  private winner: Color | null = Color.NULL
+  private winner: string | null = Color.NULL
 
   constructor () {
     this.board = Array.from({ length: this.rows }, () =>
@@ -31,7 +31,7 @@ export class Board {
     console.log(columnNumbers)
   }
 
-  checkWinner (): Color | null {
+  checkWinner (): string | null {
     for (const direction of Direction.ALL) {
       if (this.findWinner(direction.x, direction.y)) {
         return this.winner
@@ -51,8 +51,8 @@ export class Board {
             const nextCol = col + i * y
             if (
               this.isInvalidRow(nextRow) ||
-                            this.isInvalidColumn(nextCol) ||
-                            this.board[nextRow][nextCol].getColor() !== token
+              this.isInvalidColumn(nextCol) ||
+              this.board[nextRow][nextCol].getColor() !== token
             ) {
               break
             }
@@ -94,10 +94,10 @@ export class Board {
     }
     if (
       row >= 0 &&
-            row < this.rows &&
-            col >= 0 &&
-            col < this.cols &&
-            this.getToken(row, col).getColor() === Color.BLANK
+      row < this.rows &&
+      col >= 0 &&
+      col < this.cols &&
+      this.getToken(row, col).getColor() === Color.BLANK
     ) {
       this.board[row][col] = token
       return true
@@ -113,7 +113,7 @@ export class Board {
     return row < 0 || row >= this.rows || isNaN(row)
   }
 
-  getWinner (): Color | null {
+  getWinner (): string | null {
     return this.winner
   }
 
