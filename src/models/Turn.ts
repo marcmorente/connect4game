@@ -4,12 +4,8 @@ import { type Player } from './Player'
 export class Turn {
   private currentTurn: number = 0
 
-  constructor (private readonly board: Board, private players: Player[]) {
+  constructor (private readonly board: Board, private readonly players: Player[]) {
     this.board = board
-    this.players = players
-  }
-
-  setPlayers (players: Player[]): void {
     this.players = players
   }
 
