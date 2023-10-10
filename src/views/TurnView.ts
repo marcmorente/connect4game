@@ -1,7 +1,7 @@
 import { type Board } from '../models/Board'
 import { type Player } from '../models/Player'
 import { Token } from '../models/Token'
-import { type StandardCli } from '../views/StandardCli'
+import { type StandardCli } from './StandardCli'
 import { type TurnVisitor } from '../models/TurnVisitor'
 import { GAME_MODE } from '../../types/GameMode'
 
@@ -37,15 +37,15 @@ export class TurnView implements TurnVisitor {
 
   async playHuman (player: Player): Promise<void> {
     let col: number
-    let wrongcolumn: boolean = false
+    let wrongColumn: boolean = false
     do {
-      if (wrongcolumn) {
+      if (wrongColumn) {
         this.cli.print('\nWrong column! Try again.\n')
       }
       const message: string = `${player.getName()}(${player.getColor()}), choose column: `
       col = parseInt(await this.cli.promptUser(message))
       col--
-      wrongcolumn = true
+      wrongColumn = true
     } while (
       this.board.isInvalidColumn(col) ||
       !this.board.putToken(col, new Token(player.getColor()))
@@ -53,8 +53,8 @@ export class TurnView implements TurnVisitor {
   }
 
   async playBot (player: Player): Promise<void> {
-    await new Promise<void>((resolve) => {
-      setTimeout(() => {
+    await new Promise<void>((resolve): void => {
+      setTimeout((): void => {
         const col: number = Math.floor(Math.random() * 7)
         this.cli.print(`${player.getName()}(${player.getColor()}), has chosen column: ${col + 1}`)
         this.board.putToken(col, new Token(player.getColor()))

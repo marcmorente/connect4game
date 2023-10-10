@@ -41,14 +41,14 @@ export class Board {
   }
 
   private findWinner (x: number, y: number): boolean {
-    for (let row = 0; row < this.rows; row++) {
-      for (let col = 0; col < this.cols; col++) {
-        const token = this.getToken(row, col).getColor()
+    for (let row: number = 0; row < this.rows; row++) {
+      for (let col: number = 0; col < this.cols; col++) {
+        const token: string | null = this.getToken(row, col).getColor()
         if (token !== Color.BLANK.toString()) {
-          let consecutiveTokens = 0
-          for (let i = 0; i < 4; i++) {
-            const nextRow = row + i * x
-            const nextCol = col + i * y
+          let consecutiveTokens: number = 0
+          for (let i: number = 0; i < 4; i++) {
+            const nextRow: number = row + i * x
+            const nextCol: number = col + i * y
             if (
               this.isInvalidRow(nextRow) ||
               this.isInvalidColumn(nextCol) ||

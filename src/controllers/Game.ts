@@ -17,16 +17,16 @@ export class Game {
   }
 
   async start (): Promise<void> {
-    const mode = await this.turnView.selectMode()
+    const mode: number = await this.turnView.selectMode()
     const players: Player[] = GAME_MODE[mode]
-    const turn = new Turn(this.board, players)
+    const turn: Turn = new Turn(this.board, players)
     do {
       this.board.draw()
       await this.turnView.play(turn.getCurrentPlayer())
       turn.switchPlayer()
     } while (!this.board.isFinished())
     this.board.draw()
-    const player = turn.getCurrentPlayer()
+    const player: Player = turn.getCurrentPlayer()
     this.board.getWinner() !== null
       ? this.cli.print(`${player.getName()} ${player.getColor()?.toString()} wins!`)
       : this.cli.print("It's a tie!")
