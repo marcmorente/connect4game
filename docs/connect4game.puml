@@ -2,20 +2,21 @@
 skinparam classAttributeIconSize 0
 title Connect 4 Game
 class Game
-class Player
+interface Player
+class HumanPlayer implements Player
+class BotPlayer implements Player
 class Board
 class Token
 class Turn
-class Result
+class TurnView implements TurnVisitor
+interface TurnVisitor
 class Color
 
+Turn o-- "2" Player
 Game *-- Board
-Game *-- Turn
-Game *-- Result
-Result *-- Turn
-Turn *-- Player
-Turn *-- Board
-Board o-- Token
+Game *-- TurnView
 Token *-- Color
-Player --> Token
+Board *-- Token
+Game --> Turn
+
 @enduml
