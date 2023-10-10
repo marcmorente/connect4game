@@ -28,7 +28,7 @@ export class Game {
     this.board.draw()
     const player = turn.getCurrentPlayer()
     this.board.getWinner() !== null
-      ? this.cli.print(`${player.getName()} ${player.getColor()} wins!`)
+      ? this.cli.print(`${player.getName()} ${player.getColor()?.toString()} wins!`)
       : this.cli.print("It's a tie!")
     this.cli.close()
   }
