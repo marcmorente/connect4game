@@ -1,11 +1,12 @@
+import { type Color } from '../../types/Color'
 import { type Player } from './Player'
 import { type TurnVisitor } from './TurnVisitor'
 
 export class BotPlayer implements Player {
   private readonly name: string
-  private readonly color: string
+  private readonly color: Color
 
-  constructor (name: string, color: string) {
+  constructor (name: string, color: Color) {
     this.name = name
     this.color = color
   }
@@ -18,7 +19,7 @@ export class BotPlayer implements Player {
     return this.name
   }
 
-  getColor (): string {
-    return this.color
+  getColor (): Color | null {
+    return this.color ?? null
   }
 }

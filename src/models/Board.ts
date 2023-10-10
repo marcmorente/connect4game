@@ -44,7 +44,7 @@ export class Board {
     for (let row = 0; row < this.rows; row++) {
       for (let col = 0; col < this.cols; col++) {
         const token = this.getToken(row, col).getColor()
-        if (token !== Color.BLANK) {
+        if (token !== Color.BLANK.toString()) {
           let consecutiveTokens = 0
           for (let i = 0; i < 4; i++) {
             const nextRow = row + i * x
@@ -79,7 +79,7 @@ export class Board {
   isTie (): boolean {
     for (let row: number = 0; row < this.rows; row++) {
       for (let col: number = 0; col < this.cols; col++) {
-        if (this.getToken(row, col).getColor() === Color.BLANK) {
+        if (this.getToken(row, col).getColor() === Color.BLANK.toString()) {
           return false
         }
       }
@@ -89,7 +89,7 @@ export class Board {
 
   putToken (col: number, token: Token): boolean {
     let row: number = this.rows - 1
-    while (row >= 0 && this.getToken(row, col).getColor() !== Color.BLANK) {
+    while (row >= 0 && this.getToken(row, col).getColor() !== Color.BLANK.toString()) {
       row--
     }
     if (
@@ -97,7 +97,7 @@ export class Board {
       row < this.rows &&
       col >= 0 &&
       col < this.cols &&
-      this.getToken(row, col).getColor() === Color.BLANK
+      this.getToken(row, col).getColor() === Color.BLANK.toString()
     ) {
       this.board[row][col] = token
       return true

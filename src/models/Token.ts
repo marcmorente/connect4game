@@ -1,13 +1,11 @@
-import assert from 'assert'
-import { Color } from '../../types/Color'
+import { type Color } from '../../types/Color'
 
 export class Token {
-  constructor (private readonly color: string) {
-    assert([Color.RED, Color.YELLOW, Color.BLANK].includes(color))
+  constructor (private readonly color: Color | null) {
     this.color = color
   }
 
   getColor (): string | null {
-    return this.color
+    return this.color?.toString() ?? null
   }
 }
