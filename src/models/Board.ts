@@ -5,8 +5,8 @@ import { Direction } from '../../types/Direction'
 export class Board {
   private readonly TOKENS_TO_WIN: number = 4
   private readonly board: Token[][]
-  private readonly rows: number = 6
-  private readonly cols: number = 7
+  readonly rows: number = 6
+  readonly cols: number = 7
   private winner: string | null = Color.NULL
 
   constructor () {
