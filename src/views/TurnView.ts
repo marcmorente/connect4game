@@ -42,7 +42,7 @@ export class TurnView implements TurnVisitor {
       if (wrongColumn) {
         this.cli.print('\nWrong column! Try again.\n')
       }
-      const message: string = `${player.getName()}(${player.getColor()}), choose column: `
+      const message: string = `${player.getName()}(${player.getColor()?.toString()}), choose column: `
       col = parseInt(await this.cli.promptUser(message))
       col--
       wrongColumn = true
@@ -55,8 +55,8 @@ export class TurnView implements TurnVisitor {
   async playBot (player: Player): Promise<void> {
     await new Promise<void>((resolve): void => {
       setTimeout((): void => {
-        const col: number = Math.floor(Math.random() * 7)
-        this.cli.print(`${player.getName()}(${player.getColor()}), has chosen column: ${col + 1}`)
+        const col: number = Math.floor(Math.random() * this.board.cols)
+        this.cli.print(`${player.getName()}(${player.getColor()?.toString()}), has chosen column: ${col + 1}`)
         this.board.putToken(col, new Token(player.getColor()))
         resolve()
       }, 300)
