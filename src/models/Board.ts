@@ -46,7 +46,7 @@ export class Board {
         const token: string | null = this.getToken(row, col).getColor()
         if (token !== Color.BLANK.toString()) {
           let consecutiveTokens: number = 0
-          for (let i: number = 0; i < 4; i++) {
+          for (let i: number = 0; i < this.TOKENS_TO_WIN; i++) {
             const nextRow: number = row + i * x
             const nextCol: number = col + i * y
             if (
