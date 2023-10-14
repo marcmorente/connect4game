@@ -1,5 +1,5 @@
 import { type Game } from '../controllers/Game'
-import { StandardCli } from './StandardCli'
+import { type StandardCli } from './StandardCli'
 import { WithGameView } from './WithGameView'
 
 export class ResumeView extends WithGameView {
@@ -7,7 +7,7 @@ export class ResumeView extends WithGameView {
 
   constructor (game: Game) {
     super(game)
-    this.standardCli = new StandardCli()
+    this.standardCli = game.cli
   }
 
   async interact (): Promise<boolean> {

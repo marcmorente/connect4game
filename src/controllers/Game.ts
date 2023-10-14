@@ -1,6 +1,6 @@
 import { Board } from '../models/Board'
 import { Turn } from '../models/Turn'
-import { StandardCli } from '../views/StandardCli'
+import { type StandardCli } from '../views/StandardCli'
 import { TurnView } from '../views/TurnView'
 import { GAME_MODE } from '../../types/GameMode'
 import { type Player } from '../models/Player'
@@ -8,15 +8,15 @@ import { type Token } from '../models/Token'
 import { BoardView } from '../views/BoardView'
 
 export class Game {
-  private readonly cli: StandardCli
+  public readonly cli: StandardCli
   private readonly board: Board
   private readonly turnView: TurnView
   private mode: number = 0
 
-  constructor () {
-    this.cli = new StandardCli()
+  constructor (cli: StandardCli) {
     this.board = new Board()
-    this.turnView = new TurnView(this.board, this.cli)
+    this.cli = cli
+    this.turnView = new TurnView(this.board, cli)
   }
 
   async start (): Promise<void> {

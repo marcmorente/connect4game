@@ -1,5 +1,5 @@
 import { type Game } from '../controllers/Game'
-import { StandardCli } from './StandardCli'
+import { type StandardCli } from './StandardCli'
 import { GAME_MODE } from '../../types/GameMode'
 
 export class BoardView {
@@ -20,7 +20,7 @@ export class BoardView {
   }
 
   async start (game: Game): Promise<void> {
-    const cli = new StandardCli()
+    const cli = game.cli
     cli.print('Welcome to Connect 4!\n')
     let mode: number = 0
     do {
