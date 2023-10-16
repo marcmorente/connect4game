@@ -4,7 +4,7 @@ import { Direction } from '../../types/Direction'
 
 export class Board {
   private readonly TOKENS_TO_WIN: number = 4
-  private readonly board: Token[][]
+  private board: Token[][]
   readonly rows: number = 6
   readonly cols: number = 7
   private winner: string | null = Color.NULL
@@ -15,20 +15,10 @@ export class Board {
     )
   }
 
-  draw (): void {
-    console.log('\n')
-    for (let row: number = 0; row < this.rows; row++) {
-      let rowString: string = ''
-      for (let col: number = 0; col < this.cols; col++) {
-        rowString += this.getToken(row, col).getColor()
-      }
-      console.log(rowString)
-    }
-    let columnNumbers: string = ''
-    for (let col: number = 1; col <= this.cols; col++) {
-      columnNumbers += `${col} `
-    }
-    console.log(columnNumbers)
+  reset (): void {
+    this.board = Array.from({ length: this.rows }, () =>
+      Array(this.cols).fill(new Token(Color.BLANK))
+    )
   }
 
   checkWinner (): string | null {
@@ -89,7 +79,10 @@ export class Board {
 
   putToken (col: number, token: Token): boolean {
     let row: number = this.rows - 1
-    while (row >= 0 && this.getToken(row, col).getColor() !== Color.BLANK.toString()) {
+    while (
+      row >= 0 &&
+      this.getToken(row, col).getColor() !== Color.BLANK.toString()
+    ) {
       row--
     }
     if (
@@ -119,5 +112,13 @@ export class Board {
 
   getToken (row: number, col: number): Token {
     return this.board[row][col]
+  }
+
+  getRows (): number {
+    return this.rows
+  }
+
+  getCols (): number {
+    return this.cols
   }
 }

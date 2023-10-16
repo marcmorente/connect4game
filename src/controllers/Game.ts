@@ -1,35 +1,43 @@
-import { Board } from '../models/Board'
-import { Turn } from '../models/Turn'
-import { StandardCli } from '../views/StandardCli'
-import { TurnView } from '../views/TurnView'
 import { GAME_MODE } from '../../types/GameMode'
+import { Board } from '../models/Board'
 import { type Player } from '../models/Player'
+import { Turn } from '../models/Turn'
+import { BoardView } from '../views/BoardView'
+import { type StandardCli } from '../views/StandardCli'
+import { TurnView } from '../views/TurnView'
 
 export class Game {
-  private readonly cli: StandardCli
   private readonly board: Board
-  private readonly turnView: TurnView
+  private mode: number = 0
 
   constructor () {
-    this.cli = new StandardCli()
     this.board = new Board()
-    this.turnView = new TurnView(this.board, this.cli)
   }
 
-  async start (): Promise<void> {
-    const mode: number = await this.turnView.selectMode()
-    const players: Player[] = GAME_MODE[mode]
+  async start (cli: StandardCli): Promise<void> {
+    const players: Player[] = GAME_MODE[this.mode]
     const turn: Turn = new Turn(this.board, players)
     do {
-      this.board.draw()
-      await this.turnView.play(turn.getCurrentPlayer())
+      new BoardView(this.board).write()
+      await new TurnView(this.board, cli).play(turn.getCurrentPlayer())
       turn.switchPlayer()
     } while (!this.board.isFinished())
-    this.board.draw()
+    new BoardView(this.board).write()
     const player: Player = turn.getCurrentPlayer()
     this.board.getWinner() !== null
-      ? this.cli.print(`${player.getName()} ${player.getColor()?.toString()} wins!`)
-      : this.cli.print("It's a tie!")
-    this.cli.close()
+      ? cli.print(`${player.getName()} ${player.getColor()?.toString()} wins!`)
+      : cli.print("It's a tie!")
+  }
+
+  getBoard (): Board {
+    return this.board
+  }
+
+  getMode (): number {
+    return this.mode
+  }
+
+  setMode (mode: number): void {
+    this.mode = mode
   }
 }
