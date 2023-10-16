@@ -3,30 +3,32 @@ import { Board } from '../models/Board'
 import { type Player } from '../models/Player'
 import { Turn } from '../models/Turn'
 import { BoardView } from '../views/BoardView'
-import { type StandardCli } from '../views/StandardCli'
+import { StandardCli } from '../views/StandardCli'
 import { TurnView } from '../views/TurnView'
 
 export class Game {
   private readonly board: Board
   private mode: number = 0
+  private readonly cli: StandardCli
 
   constructor () {
     this.board = new Board()
+    this.cli = StandardCli.getInstance()
   }
 
-  async start (cli: StandardCli): Promise<void> {
+  async start (): Promise<void> {
     const players: Player[] = GAME_MODE[this.mode]
     const turn: Turn = new Turn(this.board, players)
     do {
       new BoardView(this.board).write()
-      await new TurnView(this.board, cli).play(turn.getCurrentPlayer())
+      await new TurnView(this.board).play(turn.getCurrentPlayer())
       turn.switchPlayer()
     } while (!this.board.isFinished())
     new BoardView(this.board).write()
     const player: Player = turn.getCurrentPlayer()
     this.board.getWinner() !== null
-      ? cli.print(`${player.getName()} ${player.getColor()?.toString()} wins!`)
-      : cli.print("It's a tie!")
+      ? this.cli.print(`${player.getName()} ${player.getColor()?.toString()} wins!`)
+      : this.cli.print("It's a tie!")
   }
 
   getBoard (): Board {

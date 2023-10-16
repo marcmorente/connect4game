@@ -1,31 +1,28 @@
 import { type Game } from '../controllers/Game'
 import { PlayView } from './PlayView'
 import { ResumeView } from './ResumeView'
-import { type StandardCli } from './StandardCli'
 import { StartView } from './StartView'
-import { WithGameView } from './WithGameView'
 
-export class View extends WithGameView {
+export class View {
   private readonly startView: StartView
   private readonly playView: PlayView
   private readonly resumeView: ResumeView
 
-  constructor (game: Game, cli: StandardCli) {
-    super(game, cli)
-    this.startView = new StartView(game, cli)
-    this.playView = new PlayView(game, cli)
-    this.resumeView = new ResumeView(game, cli)
+  constructor (private readonly game: Game) {
+    this.startView = new StartView(this.game)
+    this.playView = new PlayView(this.game)
+    this.resumeView = new ResumeView(this.game)
   }
 
   async start (): Promise<void> {
-    await this.startView.interact()
+    await this.startView.start()
   }
 
   async play (): Promise<void> {
-    await this.playView.interact()
+    await this.playView.play()
   }
 
   async resume (): Promise<boolean> {
-    return await this.resumeView.interact()
+    return await this.resumeView.resume()
   }
 }

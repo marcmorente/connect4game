@@ -2,10 +2,10 @@
     "name": "connect4game",
     "version": "0.0.1",
     "description": "Connect 4 game terminal",
-    "main": "build/index.js",
+    "main": "build/Connect4.js",
     "scripts": {
         "build": "tsc",
-        "start": "node build/index.js",
+        "start": "node build/Connect4.js",
         "watch": "tsc -w"
     },
     "repository": {

@@ -1,5 +1,4 @@
 import { Game } from './src/controllers/Game'
-import { StandardCli } from './src/views/StandardCli'
 import { View } from './src/views/View'
 
 class Connect4 {
@@ -7,7 +6,7 @@ class Connect4 {
   private readonly view: View
   constructor () {
     this.game = new Game()
-    this.view = new View(this.game, new StandardCli())
+    this.view = new View(this.game)
   }
 
   async play (): Promise<void> {

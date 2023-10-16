@@ -1,7 +1,14 @@
-import { WithGameView } from './WithGameView'
+import { type Game } from '../controllers/Game'
+import { StandardCli } from './StandardCli'
 
-export class ResumeView extends WithGameView {
-  async interact (): Promise<boolean> {
+export class ResumeView {
+  private readonly cli: StandardCli
+
+  constructor (private readonly game: Game) {
+    this.cli = StandardCli.getInstance()
+  }
+
+  async resume (): Promise<boolean> {
     return await new Promise((resolve, reject) => {
       this.cli
         .promptUser('Do you want to play again? (Y/n): ')
