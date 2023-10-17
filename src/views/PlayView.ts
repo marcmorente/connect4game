@@ -1,7 +1,10 @@
-import { WithGameView } from './WithGameView'
+import { type Game } from '../controllers/Game'
 
-export class PlayView extends WithGameView {
-  async interact (): Promise<void> {
-    await this.game.start(this.cli)
+export class PlayView {
+  constructor (private readonly game: Game) {
+  }
+
+  async play (): Promise<void> {
+    await this.game.start()
   }
 }
