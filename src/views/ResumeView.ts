@@ -1,4 +1,4 @@
-import { type Game } from '../controllers/Game'
+import { type Game } from '../models/Game'
 import { StandardCli } from './StandardCli'
 
 export class ResumeView {

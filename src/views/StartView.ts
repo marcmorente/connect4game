@@ -1,5 +1,5 @@
 import { GAME_MODE } from '../../types/GameMode'
-import { type Game } from '../controllers/Game'
+import { type Game } from '../models/Game'
 import { StandardCli } from './StandardCli'
 
 export class StartView {
