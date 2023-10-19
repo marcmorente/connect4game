@@ -1,22 +1,39 @@
 @startuml
 skinparam classAttributeIconSize 0
 title Connect 4 Game
+class Connect4
+class GameController
 class Game
-interface Player
+class View
+class StartView
+class ResumeView
+class BoardView
+class TurnView implements TurnVisitor
 class HumanPlayer implements Player
 class BotPlayer implements Player
 class Board
+class Direction
 class Token
 class Turn
-class TurnView implements TurnVisitor
-interface TurnVisitor
 class Color
+interface Player
+interface TurnVisitor
 
 Turn o-- "2" Player
+Connect4 *-- Game
+Connect4 *-- View
+Connect4 *-- GameController
+View *-- StartView
+View *-- ResumeView
+View o-- Game
+StartView o-- Game
+ResumeView o-- Game
+GameController --> TurnView
+GameController --> BoardView
+GameController --> Turn
 Game *-- Board
-Game *-- TurnView
-Token *-- Color
-Board *-- Token
-Game --> Turn
+Token o-- Color
+Board o-- Token
+Board --> Direction
 
 @enduml
