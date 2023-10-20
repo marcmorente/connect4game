@@ -1,7 +1,9 @@
 # Connect 4 game
 
 
-Connect 4 is a two-player strategy game where the goal is to be the first to line up four of your colored discs in a row, either horizontally, vertically, or diagonally, on a grid of six rows and seven columns. It's a fast-paced and engaging game of skill and tactics.
+The Connect 4 game is a classic strategy game in which 2 players go head-to-head in a battle to own the grid!
+
+Players choose yellow or red discs. They drop the discs into the grid, starting in the middle or at the edge to stack their colored discs upwards, horizontally, or diagonally. Use strategy to block opponents while aiming to be the first player to get 4 in a row to win. The Connect 4 game is a great choice for a play date, a rainy day activity, or anytime your kids want a fun game to play with a friend. It's fun to go 4 the win! For ages 6 and up.
 
 ## Requirements
 
