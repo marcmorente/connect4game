@@ -1,4 +1,5 @@
-@startuml
+@startuml Connect4game
+
 skinparam classAttributeIconSize 0
 title Connect 4 Game
 class Connect4
