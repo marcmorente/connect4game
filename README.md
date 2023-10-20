@@ -1,8 +1,7 @@
 # Connect 4 game
 
-## About
 
-Connect Four is a two-player strategy game where the goal is to be the first to line up four of your colored discs in a row, either horizontally, vertically, or diagonally, on a grid of six rows and seven columns. It's a fast-paced and engaging game of skill and tactics.
+Connect 4 is a two-player strategy game where the goal is to be the first to line up four of your colored discs in a row, either horizontally, vertically, or diagonally, on a grid of six rows and seven columns. It's a fast-paced and engaging game of skill and tactics.
 
 ## Requirements
 
