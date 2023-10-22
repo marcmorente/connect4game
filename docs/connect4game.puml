@@ -5,7 +5,8 @@ title Connect 4 Game
 class Connect4
 class GameController
 class Game
-class View
+class Turn
+class GameView
 class StartView
 class ResumeView
 class BoardView
@@ -15,24 +16,24 @@ class BotPlayer implements Player
 class Board
 class Direction
 class Token
-class Turn
 class Color
 interface Player
 interface TurnVisitor
 
 Turn o-- "2" Player
-Connect4 *-- Game
-Connect4 *-- View
+
 Connect4 *-- GameController
-View *-- StartView
-View *-- ResumeView
-View o-- Game
+GameController *-- Game
+GameController *-- Turn
+GameController *-- GameView
+GameController *-- TurnView
+GameController *-- BoardView
+GameView *-- Game
+GameView *-- StartView
+GameView *-- ResumeView
+Game *-- Board
 StartView o-- Game
 ResumeView o-- Game
-GameController --> TurnView
-GameController --> BoardView
-GameController --> Turn
-Game *-- Board
 Token o-- Color
 Board o-- Token
 Board --> Direction
