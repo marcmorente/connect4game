@@ -1,8 +1,16 @@
+import { Color } from '../../types/Color'
 import { Board } from './Board'
+import { BotPlayer } from './BotPlayer'
+import { HumanPlayer } from './HumanPlayer'
+import { type Player } from './Player'
 
 export class Game {
   private readonly board: Board
-  private mode: number = 0
+  private players!: Player[]
+  private readonly modes: Player[][] = [
+    [new HumanPlayer('Human', Color.RED), new HumanPlayer('Human', Color.YELLOW)],
+    [new HumanPlayer('Human', Color.RED), new BotPlayer('Bot', Color.YELLOW)]
+  ]
 
   constructor () {
     this.board = new Board()
@@ -12,11 +20,15 @@ export class Game {
     return this.board
   }
 
-  getMode (): number {
-    return this.mode
+  getPlayers (): Player[] {
+    return this.players
   }
 
-  setMode (mode: number): void {
-    this.mode = mode
+  setPlayers (mode: number): void {
+    this.players = this.modes[mode]
+  }
+
+  isInvalidMode (): boolean {
+    return this.getPlayers() === undefined
   }
 }

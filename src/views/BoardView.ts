@@ -1,9 +1,7 @@
 import { type Board } from '../models/Board'
 
 export class BoardView {
-  private readonly board: Board
-
-  constructor (board: Board) {
+  constructor (private readonly board: Board) {
     this.board = board
   }
 

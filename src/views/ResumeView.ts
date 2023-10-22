@@ -5,6 +5,7 @@ export class ResumeView {
   private readonly cli: StandardCli
 
   constructor (private readonly game: Game) {
+    this.game = game
     this.cli = StandardCli.getInstance()
   }
 

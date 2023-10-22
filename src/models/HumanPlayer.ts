@@ -3,10 +3,7 @@ import { type Player } from './Player'
 import { type TurnVisitor } from './TurnVisitor'
 
 export class HumanPlayer implements Player {
-  private readonly name: string
-  private readonly color: Color
-
-  constructor (name: string, color: Color) {
+  constructor (private readonly name: string, private readonly color: Color) {
     this.name = name
     this.color = color
   }

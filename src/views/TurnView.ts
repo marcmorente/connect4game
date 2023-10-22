@@ -1,19 +1,20 @@
 import { type Board } from '../models/Board'
 import { type Player } from '../models/Player'
 import { Token } from '../models/Token'
+import { type Turn } from '../models/Turn'
 import { type TurnVisitor } from '../models/TurnVisitor'
 import { StandardCli } from './StandardCli'
 
 export class TurnView implements TurnVisitor {
   private readonly cli: StandardCli
 
-  constructor (private readonly board: Board) {
-    this.board = board
+  constructor (private readonly turn: Turn, private readonly board: Board) {
     this.cli = StandardCli.getInstance()
   }
 
-  async play (player: Player): Promise<void> {
-    await player.accept(this)
+  async askPlayer (): Promise<void> {
+    console.log(this.turn.getCurrentPlayer())
+    await this.turn.getCurrentPlayer().accept(this)
   }
 
   async playHuman (player: Player): Promise<void> {

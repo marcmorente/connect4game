@@ -1,4 +1,3 @@
-import { GAME_MODE } from '../../types/GameMode'
 import { type Game } from '../models/Game'
 import { StandardCli } from './StandardCli'
 
@@ -6,6 +5,7 @@ export class StartView {
   private readonly cli: StandardCli
 
   constructor (private readonly game: Game) {
+    this.game = game
     this.cli = StandardCli.getInstance()
   }
 
@@ -13,12 +13,12 @@ export class StartView {
     this.cli.print('Welcome to Connect 4!\n')
     let mode: number = 0
     do {
-      if (mode !== 0 && this.isInvalidMode(mode)) {
+      if (mode !== 0 && this.game.isInvalidMode()) {
         this.cli.print('\nInvalid mode! Try again.\n')
       }
       mode = await this.getMode()
-    } while (this.isInvalidMode(mode))
-    this.game.setMode(mode)
+      this.game.setPlayers(mode)
+    } while (this.game.isInvalidMode())
   }
 
   async getMode (): Promise<number> {
@@ -36,9 +36,5 @@ export class StartView {
         reject(error)
       })
     })
-  }
-
-  isInvalidMode (mode: number): boolean {
-    return GAME_MODE[mode] === undefined
   }
 }
