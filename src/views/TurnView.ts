@@ -13,7 +13,6 @@ export class TurnView implements TurnVisitor {
   }
 
   async askPlayer (): Promise<void> {
-    console.log(this.turn.getCurrentPlayer())
     await this.turn.getCurrentPlayer().accept(this)
   }
 
