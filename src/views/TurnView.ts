@@ -1,3 +1,4 @@
+import { type GameController } from '../controllers/GameController'
 import { type Board } from '../models/Board'
 import { type Player } from '../models/Player'
 import { Token } from '../models/Token'
@@ -6,14 +7,16 @@ import { StandardCli } from './StandardCli'
 
 export class TurnView implements TurnVisitor {
   private readonly cli: StandardCli
+  private readonly board: Board
 
-  constructor (private readonly board: Board) {
-    this.board = board
+  constructor (private readonly gameController: GameController) {
+    this.gameController = gameController
+    this.board = this.gameController.getBoard()
     this.cli = StandardCli.getInstance()
   }
 
-  async play (player: Player): Promise<void> {
-    await player.accept(this)
+  async askMove (): Promise<void> {
+    await this.gameController.getCurrentPlayer().accept(this)
   }
 
   async playHuman (player: Player): Promise<void> {

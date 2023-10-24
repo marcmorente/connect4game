@@ -1,10 +1,12 @@
+import { type GameController } from '../controllers/GameController'
 import { type Board } from '../models/Board'
 
 export class BoardView {
   private readonly board: Board
 
-  constructor (board: Board) {
-    this.board = board
+  constructor (private readonly gameController: GameController) {
+    this.gameController = gameController
+    this.board = this.gameController.getBoard()
   }
 
   write (): void {

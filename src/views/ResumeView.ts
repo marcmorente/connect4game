@@ -1,10 +1,10 @@
-import { type Game } from '../controllers/Game'
+import { type GameController } from '../controllers/GameController'
 import { StandardCli } from './StandardCli'
 
 export class ResumeView {
   private readonly cli: StandardCli
 
-  constructor (private readonly game: Game) {
+  constructor (private readonly game: GameController) {
     this.cli = StandardCli.getInstance()
   }
 

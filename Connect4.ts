@@ -1,12 +1,12 @@
-import { Game } from './src/controllers/Game'
+import { GameController } from './src/controllers/GameController'
 import { View } from './src/views/View'
 
 class Connect4 {
-  private readonly game: Game
+  private readonly gameController: GameController
   private readonly view: View
   constructor () {
-    this.game = new Game()
-    this.view = new View(this.game)
+    this.gameController = new GameController()
+    this.view = new View(this.gameController)
   }
 
   async play (): Promise<void> {

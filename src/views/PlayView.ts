@@ -1,10 +1,10 @@
-import { type Game } from '../controllers/Game'
+import { type GameController } from '../controllers/GameController'
 
 export class PlayView {
-  constructor (private readonly game: Game) {
+  constructor (private readonly gameController: GameController) {
   }
 
   async play (): Promise<void> {
-    await this.game.start()
+    await this.gameController.start()
   }
 }
