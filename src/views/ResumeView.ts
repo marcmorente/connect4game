@@ -4,7 +4,7 @@ import { StandardCli } from './StandardCli'
 export class ResumeView {
   private readonly cli: StandardCli
 
-  constructor (private readonly game: GameController) {
+  constructor (private readonly gameController: GameController) {
     this.cli = StandardCli.getInstance()
   }
 
@@ -18,7 +18,7 @@ export class ResumeView {
             this.cli.close()
             resolve(false)
           }
-          this.game.getBoard().reset()
+          this.gameController.reset()
           resolve(true)
         })
         .catch((err) => {

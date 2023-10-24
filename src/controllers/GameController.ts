@@ -27,10 +27,14 @@ export class GameController {
       this.game.switchPlayer()
     } while (!this.board.isFinished())
     this.boardView.write()
-    const player: Player = this.game.getCurrentPlayer()
+    const player: Player = this.getCurrentPlayer()
     this.board.getWinner() !== null
       ? this.cli.print(`${player.getName()} ${player.getColor()?.toString()} wins!`)
       : this.cli.print("It's a tie!")
+  }
+
+  reset (): void {
+    this.board.reset()
   }
 
   getBoard (): Board {
