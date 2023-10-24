@@ -1,6 +1,6 @@
 import { type Color } from '../../types/Color'
 import { type Player } from './Player'
-import { type TurnVisitor } from './TurnVisitor'
+import { type PlayerVisitor } from './PlayerVisitor'
 
 export class HumanPlayer implements Player {
   private readonly name: string
@@ -11,7 +11,7 @@ export class HumanPlayer implements Player {
     this.color = color
   }
 
-  async accept (visitor: TurnVisitor): Promise<void> {
+  async accept (visitor: PlayerVisitor): Promise<void> {
     await visitor.playHuman(this)
   }
 

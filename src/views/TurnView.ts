@@ -2,10 +2,10 @@ import { type GameController } from '../controllers/GameController'
 import { type Board } from '../models/Board'
 import { type Player } from '../models/Player'
 import { Token } from '../models/Token'
-import { type TurnVisitor } from '../models/TurnVisitor'
+import { type PlayerVisitor } from '../models/PlayerVisitor'
 import { StandardCli } from './StandardCli'
 
-export class TurnView implements TurnVisitor {
+export class TurnView implements PlayerVisitor {
   private readonly cli: StandardCli
   private readonly board: Board
 

@@ -1,8 +1,8 @@
 import { type Color } from '../../types/Color'
-import { type TurnVisitor } from './TurnVisitor'
+import { type PlayerVisitor } from './PlayerVisitor'
 
 export interface Player {
   getName: () => string
   getColor: () => Color | null
-  accept: (visitor: TurnVisitor) => Promise<void>
+  accept: (visitor: PlayerVisitor) => Promise<void>
 }
