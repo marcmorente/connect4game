@@ -13,12 +13,12 @@ export class StartView {
     this.cli.print('Welcome to Connect 4!\n')
     let mode: number = 0
     do {
-      if (mode !== 0 && this.game.isInvalidMode()) {
+      if (mode !== 0 && this.game.isInvalidMode(mode)) {
         this.cli.print('\nInvalid mode! Try again.\n')
       }
       mode = await this.getMode()
-      this.game.setPlayers(mode)
-    } while (this.game.isInvalidMode())
+    } while (this.game.isInvalidMode(mode))
+    this.game.setPlayers(mode)
   }
 
   async getMode (): Promise<number> {

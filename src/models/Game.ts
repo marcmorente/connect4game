@@ -24,11 +24,23 @@ export class Game {
     return this.players
   }
 
+  getWinner (): string | null {
+    return this.board.getWinner()
+  }
+
   setPlayers (mode: number): void {
     this.players = this.modes[mode]
   }
 
-  isInvalidMode (): boolean {
-    return this.getPlayers() === undefined
+  isInvalidMode (mode: number): boolean {
+    return this.modes[mode] === undefined
+  }
+
+  isFinished (): boolean {
+    return this.getBoard().isFinished()
+  }
+
+  reset (): void {
+    this.getBoard().reset()
   }
 }

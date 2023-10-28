@@ -29,10 +29,10 @@ export class GameController {
       this.boardView.write()
       await this.turnView.askPlayer()
       this.turn.switchPlayer()
-    } while (!this.game.getBoard().isFinished())
+    } while (!this.game.isFinished())
     this.boardView.write()
     const player: Player = this.turn.getCurrentPlayer()
-    this.game.getBoard().getWinner() !== null
+    this.game.getWinner() !== null
       ? this.cli.print(`${player.getName()} ${player.getColor()?.toString()} wins!`)
       : this.cli.print("It's a tie!")
   }

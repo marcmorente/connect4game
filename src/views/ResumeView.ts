@@ -19,7 +19,7 @@ export class ResumeView {
             this.cli.close()
             resolve(false)
           }
-          this.game.getBoard().reset()
+          this.game.reset()
           resolve(true)
         })
         .catch((err) => {

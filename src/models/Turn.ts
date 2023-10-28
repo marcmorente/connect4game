@@ -15,7 +15,7 @@ export class Turn {
   }
 
   switchPlayer (): void {
-    if (!this.game.getBoard().isFinished()) {
+    if (!this.game.isFinished()) {
       this.currentTurn = (this.currentTurn + 1) % this.game.getPlayers().length
     }
   }
