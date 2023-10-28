@@ -7,7 +7,7 @@ import { TurnView } from '../views/TurnView'
 
 export class PlayController {
   private readonly cli: StandardCli
-  private readonly turn: any
+  private readonly turn: Turn
   private readonly boardView: BoardView
   private readonly turnView: TurnView
 
