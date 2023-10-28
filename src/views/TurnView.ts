@@ -1,6 +1,5 @@
 import { type Board } from '../models/Board'
 import { type Player } from '../models/Player'
-import { Token } from '../models/Token'
 import { type Turn } from '../models/Turn'
 import { type TurnVisitor } from '../models/TurnVisitor'
 import { StandardCli } from './StandardCli'
@@ -25,20 +24,16 @@ export class TurnView implements TurnVisitor {
       }
       const message: string = `${player.getName()}(${player.getColor()?.toString()}), choose column: `
       col = parseInt(await this.cli.promptUser(message))
-      col--
+      player.setColumn(col)
       wrongColumn = true
-    } while (
-      this.board.isInvalidColumn(col) ||
-      !this.board.putToken(col, new Token(player.getColor()))
-    )
+    } while (this.board.isInvalidColumn(col) || !player.putToken(this.board))
   }
 
   async playBot (player: Player): Promise<void> {
     await new Promise<void>((resolve): void => {
       setTimeout((): void => {
-        const col: number = Math.floor(Math.random() * this.board.cols)
-        this.cli.print(`${player.getName()}(${player.getColor()?.toString()}), has chosen column: ${col + 1}`)
-        this.board.putToken(col, new Token(player.getColor()))
+        player.putToken(this.board)
+        this.cli.print(`${player.getName()}(${player.getColor()?.toString()}), has chosen column: ${player.getColumn() + 1}`)
         resolve()
       }, 300)
     })
