@@ -1,26 +1,21 @@
-import { PlayController } from './src/controllers/PlayController'
-import { ResumeController } from './src/controllers/ResumeController'
-import { StartController } from './src/controllers/StartController'
-import { Game } from './src/models/Game'
+import { Logic } from './src/controllers/Logic'
 
 class Connect4 {
-  private readonly game: Game
-  private readonly startController: StartController
-  private readonly playController: PlayController
-  private readonly resumeController: ResumeController
+  private readonly logic: Logic
 
   constructor () {
-    this.game = new Game()
-    this.startController = new StartController(this.game)
-    this.playController = new PlayController(this.game)
-    this.resumeController = new ResumeController(this.game)
+    this.logic = new Logic()
   }
 
   async play (): Promise<void> {
+    let controller
     do {
-      await this.startController.start()
-      await this.playController.play()
-    } while (await this.resumeController.resume())
+      controller = this.logic.getController()
+      if (controller !== null) {
+        await controller?.control()
+        controller?.nextState()
+      }
+    } while (controller !== null)
   }
 }
 

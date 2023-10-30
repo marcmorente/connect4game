@@ -1,24 +1,27 @@
 import { type Game } from '../models/Game'
 import { type Player } from '../models/Player'
+import { type State } from '../models/State'
 import { Turn } from '../models/Turn'
 import { BoardView } from '../views/BoardView'
 import { StandardCli } from '../views/StandardCli'
 import { TurnView } from '../views/TurnView'
+import { Controller } from './Controller'
 
-export class PlayController {
+export class PlayController extends Controller {
   private readonly cli: StandardCli
   private readonly turn: Turn
   private readonly boardView: BoardView
   private readonly turnView: TurnView
 
-  constructor (private readonly game: Game) {
+  constructor (game: Game, state: State) {
+    super(game, state)
     this.cli = StandardCli.getInstance()
     this.turn = new Turn(this.game)
     this.turnView = new TurnView(this.turn, this.game.getBoard())
     this.boardView = new BoardView(this.game.getBoard())
   }
 
-  async play (): Promise<void> {
+  async control (): Promise<void> {
     do {
       this.boardView.write()
       await this.turnView.askPlayer()
