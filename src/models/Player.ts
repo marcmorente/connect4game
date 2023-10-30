@@ -1,6 +1,6 @@
 import { type Color } from '../../types/Color'
 import { type Board } from './Board'
-import { type TurnVisitor } from './TurnVisitor'
+import { type PlayerVisitor } from './PlayerVisitor'
 
 export abstract class Player {
   private col: number = 0
@@ -27,5 +27,5 @@ export abstract class Player {
   }
 
   abstract putToken (game: Board): boolean
-  abstract accept (visitor: TurnVisitor): Promise<void>
+  abstract accept (visitor: PlayerVisitor): Promise<void>
 }

@@ -1,10 +1,10 @@
 import { type Board } from '../models/Board'
 import { type Player } from '../models/Player'
 import { type Turn } from '../models/Turn'
-import { type TurnVisitor } from '../models/TurnVisitor'
+import { type PlayerVisitor } from '../models/PlayerVisitor'
 import { StandardCli } from './StandardCli'
 
-export class TurnView implements TurnVisitor {
+export class TurnView implements PlayerVisitor {
   private readonly cli: StandardCli
 
   constructor (private readonly turn: Turn, private readonly board: Board) {

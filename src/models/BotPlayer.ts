@@ -1,7 +1,7 @@
 import { type Board } from './Board'
 import { Player } from './Player'
 import { Token } from './Token'
-import { type TurnVisitor } from './TurnVisitor'
+import { type PlayerVisitor } from './PlayerVisitor'
 
 export class BotPlayer extends Player {
   putToken (board: Board): boolean {
@@ -10,7 +10,7 @@ export class BotPlayer extends Player {
     return board.putToken(this.getColumn(), new Token(this.getColor()))
   }
 
-  async accept (visitor: TurnVisitor): Promise<void> {
+  async accept (visitor: PlayerVisitor): Promise<void> {
     await visitor.playBot(this)
   }
 }
