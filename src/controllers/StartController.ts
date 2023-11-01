@@ -1,14 +1,13 @@
-import { type Game } from '../models/Game'
-import { type State } from '../models/State'
+import { type Session } from '../models/Session'
 import { StartView } from '../views/StartView'
 import { Controller } from './Controller'
 
 export class StartController extends Controller {
   private readonly startView: StartView
 
-  constructor (game: Game, state: State) {
-    super(game, state)
-    this.startView = new StartView(this.game)
+  constructor (session: Session) {
+    super(session)
+    this.startView = new StartView(this.session)
   }
 
   async control (): Promise<void> {

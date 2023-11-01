@@ -2,10 +2,13 @@ import { Color } from '../../types/Color'
 import { Board } from './Board'
 import { BotPlayer } from './BotPlayer'
 import { HumanPlayer } from './HumanPlayer'
+import { Memento } from './Memento'
 import { type Player } from './Player'
+import { Turn } from './Turn'
 
 export class Game {
-  private readonly board: Board
+  private board: Board
+  private readonly turn: Turn
   private players!: Player[]
   private readonly modes: Player[][] = [
     [new HumanPlayer('Human', Color.RED), new HumanPlayer('Human', Color.YELLOW)],
@@ -14,10 +17,27 @@ export class Game {
 
   constructor () {
     this.board = new Board()
+    this.turn = new Turn(this)
   }
 
   getBoard (): Board {
     return this.board
+  }
+
+  setBoard (board: Board): void {
+    this.board = board
+  }
+
+  createMemento (): Memento {
+    return new Memento(this)
+  }
+
+  switchPlayer (): void {
+    this.turn.switchPlayer()
+  }
+
+  getCurrentPlayer (): Player {
+    return this.turn.getCurrentPlayer()
   }
 
   getPlayers (): Player[] {
@@ -30,6 +50,11 @@ export class Game {
 
   setPlayers (mode: number): void {
     this.players = this.modes[mode]
+    this.setCurrentPlayer(this.players[0])
+  }
+
+  setCurrentPlayer (player: Player): void {
+    this.turn.setCurrentPlayer(player)
   }
 
   isInvalidMode (mode: number): boolean {

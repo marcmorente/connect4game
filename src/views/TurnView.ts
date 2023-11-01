@@ -1,18 +1,20 @@
 import { type Board } from '../models/Board'
 import { type Player } from '../models/Player'
-import { type Turn } from '../models/Turn'
 import { type PlayerVisitor } from '../models/PlayerVisitor'
 import { StandardCli } from './StandardCli'
+import { type Session } from '../models/Session'
 
 export class TurnView implements PlayerVisitor {
   private readonly cli: StandardCli
+  private readonly board: Board
 
-  constructor (private readonly turn: Turn, private readonly board: Board) {
+  constructor (private readonly session: Session) {
     this.cli = StandardCli.getInstance()
+    this.board = this.session.getBoard()
   }
 
   async askPlayer (): Promise<void> {
-    await this.turn.getCurrentPlayer().accept(this)
+    await this.session.getCurrentPlayer().accept(this)
   }
 
   async playHuman (player: Player): Promise<void> {

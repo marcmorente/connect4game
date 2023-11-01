@@ -1,20 +1,19 @@
-import { type Game } from '../models/Game'
-import { type State } from '../models/State'
+import { type Session } from '../models/Session'
 import { ResumeView } from '../views/ResumeView'
 import { Controller } from './Controller'
 
 export class ResumeController extends Controller {
   private readonly resumeView: ResumeView
 
-  constructor (game: Game, state: State) {
-    super(game, state)
-    this.resumeView = new ResumeView(this.game)
+  constructor (session: Session) {
+    super(session)
+    this.resumeView = new ResumeView(this.session)
   }
 
   async control (): Promise<void> {
     const resume = await this.resumeView.resume()
     if (resume) {
-      this.resetState()
+      this.session.reset()
     }
   }
 }

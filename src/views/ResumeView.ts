@@ -1,11 +1,10 @@
-import { type Game } from '../models/Game'
+import { type Session } from '../models/Session'
 import { StandardCli } from './StandardCli'
 
 export class ResumeView {
   private readonly cli: StandardCli
 
-  constructor (private readonly game: Game) {
-    this.game = game
+  constructor (private readonly session: Session) {
     this.cli = StandardCli.getInstance()
   }
 
@@ -19,7 +18,6 @@ export class ResumeView {
             this.cli.close()
             resolve(false)
           }
-          this.game.reset()
           resolve(true)
         })
         .catch((err) => {

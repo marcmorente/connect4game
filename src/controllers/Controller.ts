@@ -1,21 +1,14 @@
-import { type Game } from '../models/Game'
-import { type State } from '../models/State'
+import { type Session } from '../models/Session'
 
 export abstract class Controller {
-  protected game: Game
-  protected state: State
+  protected readonly session: Session
 
-  constructor (game: Game, state: State) {
-    this.game = game
-    this.state = state
-  }
-
-  public resetState (): void {
-    this.state.reset()
+  constructor (session: Session) {
+    this.session = session
   }
 
   public nextState (): void {
-    this.state.next()
+    this.session.nextState()
   }
 
   public abstract control (): Promise<void>

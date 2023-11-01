@@ -4,19 +4,19 @@ import { Direction } from '../../types/Direction'
 
 export class Board {
   private readonly TOKENS_TO_WIN: number = 4
-  private board: Token[][]
+  private tokenGrid: Token[][]
   readonly rows: number = 6
   readonly cols: number = 7
   private winner: string | null = Color.NULL
 
   constructor () {
-    this.board = Array.from({ length: this.rows }, () =>
+    this.tokenGrid = Array.from({ length: this.rows }, () =>
       Array(this.cols).fill(new Token(Color.BLANK))
     )
   }
 
   reset (): void {
-    this.board = Array.from({ length: this.rows }, () =>
+    this.tokenGrid = Array.from({ length: this.rows }, () =>
       Array(this.cols).fill(new Token(Color.BLANK))
     )
   }
@@ -42,7 +42,7 @@ export class Board {
             if (
               this.isInvalidRow(nextRow) ||
               this.isInvalidColumn(nextCol) ||
-              this.board[nextRow][nextCol].getColor() !== token
+              this.tokenGrid[nextRow][nextCol].getColor() !== token
             ) {
               break
             }
@@ -92,7 +92,7 @@ export class Board {
       col < this.cols &&
       this.getToken(row, col).getColor() === Color.BLANK.toString()
     ) {
-      this.board[row][col] = token
+      this.tokenGrid[row][col] = token
       return true
     }
     return false
@@ -106,12 +106,32 @@ export class Board {
     return row < 0 || row >= this.rows || isNaN(row)
   }
 
+  setSnapshot (snapshot: Token[][]): void {
+    this.tokenGrid = this.cloneTokenGrid(snapshot)
+  }
+
+  getSnapshot (): Token[][] {
+    return this.cloneTokenGrid(this.tokenGrid)
+  }
+
+  private cloneTokenGrid (tokenGrid: Token[][]): Token[][] {
+    const result = []
+    for (let i = 0; i < tokenGrid.length; i++) {
+      const row = []
+      for (let j = 0; j < tokenGrid[i].length; j++) {
+        row.push(tokenGrid[i][j])
+      }
+      result.push(row)
+    }
+    return result
+  }
+
   getWinner (): string | null {
     return this.winner
   }
 
   getToken (row: number, col: number): Token {
-    return this.board[row][col]
+    return this.tokenGrid[row][col]
   }
 
   getRows (): number {
