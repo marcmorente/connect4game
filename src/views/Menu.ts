@@ -2,6 +2,7 @@ import assert from 'assert'
 import { type Command } from './Command'
 import { StandardCli } from './StandardCli'
 import { ClosedInterval } from '../../utils/ClosedInterval'
+import { TurnState } from '../models/TurnState'
 
 export abstract class Menu {
   private readonly commands: Command[]
@@ -16,7 +17,10 @@ export abstract class Menu {
 
   async execute (): Promise<void> {
     const activeCommands: Command[] = this.getActiveCommands()
-    if (activeCommands.length === 1) {
+    if (
+      activeCommands.length === 1 ||
+      TurnState.getInstance().getTurn() === TurnState.BOT
+    ) {
       await activeCommands[0].execute()
       return
     }

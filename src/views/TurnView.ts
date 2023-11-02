@@ -4,6 +4,7 @@ import { type PlayerVisitor } from '../models/PlayerVisitor'
 import { StandardCli } from './StandardCli'
 import { type Session } from '../models/Session'
 import { Message } from '../../types/Message'
+import { TurnState } from '../models/TurnState'
 
 export class TurnView implements PlayerVisitor {
   private readonly cli: StandardCli
@@ -19,6 +20,7 @@ export class TurnView implements PlayerVisitor {
   }
 
   async playHuman (player: Player): Promise<void> {
+    TurnState.getInstance().setTurn(TurnState.HUMAN)
     let col: number
     let wrongColumn: boolean = false
     do {
@@ -32,6 +34,7 @@ export class TurnView implements PlayerVisitor {
   }
 
   async playBot (player: Player): Promise<void> {
+    TurnState.getInstance().setTurn(TurnState.BOT)
     await new Promise<void>((resolve): void => {
       setTimeout((): void => {
         player.putToken(this.board)
