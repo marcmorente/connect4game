@@ -3,39 +3,32 @@
 skinparam classAttributeIconSize 0
 title Connect 4 Game
 class Connect4
+class Logic
+abstract class Controller
+class StartController
 class GameController
-class Game
-class Turn
-class GameView
-class StartView
-class ResumeView
+class PlayController
+class ResumeController
 class BoardView
-class TurnView implements TurnVisitor
-class HumanPlayer implements Player
-class BotPlayer implements Player
-class Board
-class Direction
-class Token
-class Color
-interface Player
-interface TurnVisitor
+class ResumeView
+abstract class Menu
+class PlayMenu
+
+
+Connect4 *-- Logic
+Logic o-- Controller
+Controller <|-- StartController
+Controller <|-- GameController
+Controller <|-- ResumeController
+Menu <|- PlayMenu
+
+GameController *-- PlayController
+GameController *-- BoardView
+GameController *-- ResumeView
+GameController --> PlayMenu
+PlayController o-- PlayMenu
 
 Turn o-- "2" Player
 
-Connect4 *-- GameController
-GameController *-- Game
-GameController *-- Turn
-GameController *-- GameView
-GameController *-- TurnView
-GameController *-- BoardView
-GameView *-- Game
-GameView *-- StartView
-GameView *-- ResumeView
-Game *-- Board
-StartView o-- Game
-ResumeView o-- Game
-Token o-- Color
-Board o-- Token
-Board --> Direction
 
 @enduml
