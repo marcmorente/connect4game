@@ -12,7 +12,8 @@ export class Game {
   private players!: Player[]
   private readonly modes: Player[][] = [
     [new HumanPlayer('Human', Color.RED), new HumanPlayer('Human', Color.YELLOW)],
-    [new HumanPlayer('Human', Color.RED), new BotPlayer('Bot', Color.YELLOW)]
+    [new HumanPlayer('Human', Color.RED), new BotPlayer('Bot', Color.YELLOW)],
+    [new BotPlayer('Bot 1', Color.RED), new BotPlayer('Bot 2', Color.YELLOW)]
   ]
 
   constructor () {

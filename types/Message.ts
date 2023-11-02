@@ -6,6 +6,7 @@ export class Message {
     'Select one of the following modes to start the game:\n' +
     '1. Human vs Human\n' +
     '2. Human vs Bot\n' +
+    '3. Bot vs Bot\n' +
     'Mode: '
   )
 
