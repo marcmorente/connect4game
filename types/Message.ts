@@ -9,7 +9,7 @@ export class Message {
     'Mode: '
   )
 
-  static readonly CONTINUE_COMMAND = new Message('Continue')
+  static readonly CONFIRM_COMMAND = new Message('Confirm previous action')
   static readonly UNDO_COMMAND = new Message('Undo previous action')
   static readonly REDO_COMMAND = new Message('Redo previous action')
   static readonly WRONG_COLUMN = new Message('\nWrong column! Try again.\n')
