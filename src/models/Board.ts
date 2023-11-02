@@ -23,39 +23,43 @@ export class Board {
 
   checkWinner (): string | null {
     for (const direction of Direction.ALL) {
-      if (this.findWinner(direction.x, direction.y)) {
+      if (this.findWinner(direction)) {
         return this.winner
       }
     }
     return null
   }
 
-  private findWinner (x: number, y: number): boolean {
+  private findWinner (direction: Direction): boolean {
     for (let row: number = 0; row < this.rows; row++) {
       for (let col: number = 0; col < this.cols; col++) {
-        const token: string | null = this.getToken(row, col).getColor()
-        if (token !== Color.BLANK.toString()) {
-          let consecutiveTokens: number = 0
-          for (let i: number = 0; i < this.TOKENS_TO_WIN; i++) {
-            const nextRow: number = row + i * x
-            const nextCol: number = col + i * y
-            if (
-              this.isInvalidRow(nextRow) ||
-              this.isInvalidColumn(nextCol) ||
-              this.tokenGrid[nextRow][nextCol].getColor() !== token
-            ) {
-              break
-            }
-            consecutiveTokens++
-          }
-          if (consecutiveTokens === this.TOKENS_TO_WIN) {
-            this.winner = this.getToken(row, col).getColor()
-            return true
-          }
+        if (this.checkLine(row, col, direction) === this.TOKENS_TO_WIN) {
+          this.winner = this.getToken(row, col).getColor()
+          return true
         }
       }
     }
     return false
+  }
+
+  private checkLine (row: number, col: number, direction: Direction): number {
+    const token: string | null = this.getToken(row, col).getColor()
+    let consecutiveTokens: number = 0
+    if (token !== Color.BLANK.toString()) {
+      for (let i: number = 0; i < this.TOKENS_TO_WIN; i++) {
+        const nextRow: number = row + i * direction.x
+        const nextCol: number = col + i * direction.y
+        if (
+          this.isInvalidRow(nextRow) ||
+          this.isInvalidColumn(nextCol) ||
+          this.tokenGrid[nextRow][nextCol].getColor() !== token
+        ) {
+          break
+        }
+        consecutiveTokens++
+      }
+    }
+    return consecutiveTokens
   }
 
   isFinished (): boolean {
