@@ -5,7 +5,7 @@ import { ResumeView } from '../views/ResumeView'
 import { Controller } from './Controller'
 import { PlayController } from './PlayController'
 
-export class MainController extends Controller {
+export class GameController extends Controller {
   private readonly playController: PlayController
   private readonly boardView: BoardView
   private readonly resumeView: ResumeView
