@@ -18,7 +18,7 @@ export class Session {
   reset (): void {
     this.game.reset()
     this.state.reset()
-    // this.registry.reset()
+    this.registry.reset()
   }
 
   nextState (): void {
