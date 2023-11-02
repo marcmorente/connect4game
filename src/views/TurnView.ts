@@ -3,6 +3,7 @@ import { type Player } from '../models/Player'
 import { type PlayerVisitor } from '../models/PlayerVisitor'
 import { StandardCli } from './StandardCli'
 import { type Session } from '../models/Session'
+import { Message } from '../../types/Message'
 
 export class TurnView implements PlayerVisitor {
   private readonly cli: StandardCli
@@ -22,10 +23,9 @@ export class TurnView implements PlayerVisitor {
     let wrongColumn: boolean = false
     do {
       if (wrongColumn) {
-        this.cli.print('\nWrong column! Try again.\n')
+        this.cli.print(Message.WRONG_COLUMN.toString())
       }
-      const message: string = `${player.getName()}(${player.getColor()?.toString()}), choose column: `
-      col = parseInt(await this.cli.promptUser(message))
+      col = parseInt(await this.cli.promptUser(this.message(player)))
       player.setColumn(col)
       wrongColumn = true
     } while (this.board.isInvalidColumn(col) || !player.putToken(this.board))
@@ -35,9 +35,17 @@ export class TurnView implements PlayerVisitor {
     await new Promise<void>((resolve): void => {
       setTimeout((): void => {
         player.putToken(this.board)
-        this.cli.print(`${player.getName()}(${player.getColor()?.toString()}), has chosen column: ${player.getColumn() + 1}`)
+        this.cli.print(`${this.message(player)} ${player.getColumn() + 1}`)
         resolve()
       }, 300)
     })
+  }
+
+  private message (player: Player): string {
+    return Message.replace(
+      Message.PLAYER_TEMPLATE,
+      Message.CHOOSE_COLUMN,
+      `${player.getName()}(${player.getColor()?.toString()})`
+    ).toString()
   }
 }

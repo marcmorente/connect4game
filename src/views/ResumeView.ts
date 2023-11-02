@@ -1,3 +1,4 @@
+import { Message } from '../../types/Message'
 import { type Session } from '../models/Session'
 import { StandardCli } from './StandardCli'
 
@@ -11,10 +12,10 @@ export class ResumeView {
   async resume (): Promise<boolean> {
     return await new Promise((resolve, reject) => {
       this.cli
-        .promptUser('Do you want to play again? (Y/n): ')
+        .promptUser(Message.RESUME.toString())
         .then((resume) => {
           if (resume.toLowerCase() === 'n') {
-            this.cli.print('Thanks for playing!')
+            this.cli.print(Message.THANKS.toString())
             this.cli.close()
             resolve(false)
           }
@@ -24,5 +25,22 @@ export class ResumeView {
           reject(err)
         })
     })
+  }
+
+  printWinner (): void {
+    const player = this.session.getCurrentPlayer()
+    this.cli.print(
+      Message
+        .replace(
+          Message.PLAYER_TEMPLATE,
+          Message.WINNER,
+          `${player.getName()}(${player.getColor()?.toString()})`
+        )
+        .toString()
+    )
+  }
+
+  printTie (): void {
+    this.cli.print(Message.TIE.toString())
   }
 }

@@ -1,3 +1,4 @@
+import { Message } from '../../types/Message'
 import { type Session } from '../models/Session'
 import { StandardCli } from './StandardCli'
 
@@ -9,11 +10,11 @@ export class StartView {
   }
 
   async start (): Promise<void> {
-    this.cli.print('Welcome to Connect 4!\n')
+    this.cli.print(Message.WELCOME.toString())
     let mode: number = 0
     do {
       if (mode !== 0 && this.session.isInvalidMode(mode)) {
-        this.cli.print('\nInvalid mode! Try again.\n')
+        this.cli.print(Message.INVALID_MODE.toString())
       }
       mode = await this.getMode()
     } while (this.session.isInvalidMode(mode))
@@ -22,11 +23,7 @@ export class StartView {
 
   async getMode (): Promise<number> {
     return await new Promise((resolve, reject) => {
-      const message: string =
-            'Select one of the following modes to start the game:\n' +
-            '1. Human vs Human\n' +
-            '2. Human vs Bot\n' +
-            'Mode: '
+      const message: string = Message.CHOOSE_MODE.toString()
       this.cli.promptUser(message).then((mode: string) => {
         const selectedMode = parseInt(mode) - 1
         resolve(selectedMode)
