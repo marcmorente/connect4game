@@ -67,10 +67,12 @@ export class Session {
 
   undo (): void {
     this.registry.undo()
+    this.switchPlayer()
   }
 
   redo (): void {
     this.registry.redo()
+    this.switchPlayer()
   }
 
   next (): void {
