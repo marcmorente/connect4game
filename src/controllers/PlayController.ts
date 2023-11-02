@@ -1,47 +1,41 @@
-import { type Player } from '../models/Player'
+import { type Board } from '../models/Board'
 import { type Session } from '../models/Session'
-import { BoardView } from '../views/BoardView'
-import { StandardCli } from '../views/StandardCli'
-import { TurnView } from '../views/TurnView'
-import { Controller } from './Controller'
-import { UndoRedoController } from './UndoRedoController'
+import { RedoController } from './RedoController'
+import { TurnController } from './TurnController'
+import { UndoController } from './UndoController'
 
-export class PlayController extends Controller {
-  private readonly cli: StandardCli
-  private readonly boardView: BoardView
-  private readonly turnView: TurnView
-  private readonly undoRedoController: UndoRedoController
+export class PlayController {
+  private readonly turnController: TurnController
+  private readonly undoController: UndoController
+  private readonly redoController: RedoController
 
-  constructor (session: Session) {
-    super(session)
-    this.cli = StandardCli.getInstance()
-    this.undoRedoController = new UndoRedoController(session)
-    this.turnView = new TurnView(this.session)
-    this.boardView = new BoardView(this.session.getBoard())
+  constructor (private readonly session: Session) {
+    this.turnController = new TurnController(this.session)
+    this.undoController = new UndoController(this.session)
+    this.redoController = new RedoController(this.session)
   }
 
-  async control (): Promise<void> {
-    do {
-      await this.playAction()
-      await this.undoRedoAction()
-    } while (!this.session.isFinished())
-    this.boardView.write()
-    const player: Player = this.session.getCurrentPlayer()
-    this.session.getWinner() !== null
-      ? this.cli.print(`${player.getName()} ${player.getColor()?.toString()} wins!`)
-      : this.cli.print("It's a tie!")
+  async action (): Promise<void> {
+    await this.turnController.control()
   }
 
-  async playAction (): Promise<void> {
-    this.boardView.write()
-    await this.turnView.askPlayer()
-    this.session.switchPlayer()
-    this.session.next()
+  undo (): void {
+    this.undoController.undo()
   }
 
-  async undoRedoAction (): Promise<void> {
-    this.boardView.write()
-    await this.undoRedoController.control()
-    this.boardView.write()
+  redo (): void {
+    this.redoController.redo()
+  }
+
+  undoable (): boolean {
+    return this.undoController.undoable()
+  }
+
+  redoable (): boolean {
+    return this.redoController.redoable()
+  }
+
+  getBoard (): Board {
+    return this.session.getBoard()
   }
 }

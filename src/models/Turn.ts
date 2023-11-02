@@ -16,6 +16,7 @@ export class Turn {
 
   setCurrentPlayer (player: Player): void {
     assert(player !== undefined)
+
     this.currentPlayer = player
   }
 
