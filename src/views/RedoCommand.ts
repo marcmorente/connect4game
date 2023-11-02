@@ -1,9 +1,10 @@
+import { Message } from '../../types/Message'
 import { type PlayController } from '../controllers/PlayController'
 import { PlayCommand } from './PlayCommand'
 
 export class RedoCommand extends PlayCommand {
   constructor (playController: PlayController) {
-    super('Redo', playController)
+    super(Message.REDO_COMMAND.toString(), playController)
   }
 
   async execute (): Promise<void> {

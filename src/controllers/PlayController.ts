@@ -15,7 +15,7 @@ export class PlayController {
     this.redoController = new RedoController(this.session)
   }
 
-  async action (): Promise<void> {
+  async play (): Promise<void> {
     await this.turnController.control()
   }
 
