@@ -9,7 +9,6 @@ export class Memento {
   constructor (private readonly board: Board, private readonly turn: Turn) {
     this.boardSnapshot = this.board.getSnapshot()
     this.turnSnapshot = this.turn.getSnapshot()
-    console.log('Memento created', this.turnSnapshot.getCurrentPlayer())
   }
 
   restore (): void {
