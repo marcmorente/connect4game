@@ -3,14 +3,24 @@
 skinparam classAttributeIconSize 0
 title Connect 4 Game
 class Connect4
+class Turn
 class Logic
+class Session
+class Registry
+class State
+class Game
+enum StateValue
 abstract class Controller
 class StartController
 class GameController
 class PlayController
+class TurnController
+class UndoController
+class RedoController
 class ResumeController
 class BoardView
 class ResumeView
+class StartView
 abstract class Menu
 class PlayMenu
 
@@ -20,13 +30,33 @@ Logic o-- Controller
 Controller <|-- StartController
 Controller <|-- GameController
 Controller <|-- ResumeController
+ResumeController *-- ResumeView
 Menu <|- PlayMenu
-
+State --* Session
+Game --* Session
+Registry --* Session
+State --> StateValue
+Registry o-- Game
+StartController *-- StartView
 GameController *-- PlayController
 GameController *-- BoardView
 GameController *-- ResumeView
 GameController --> PlayMenu
 PlayController o-- PlayMenu
+PlayController *-- TurnController
+PlayController *-- UndoController
+PlayController *-- RedoController
+Session o-- StartController
+Session o-- GameController
+Session o-- ResumeController
+Session o-- TurnController
+Session o-- UndoController
+Session o-- RedoController
+Session o-- PlayController
+Session o-- StartView
+Session o-- ResumeView
+Session o-- TurnView
+
 
 Turn o-- "2" Player
 
