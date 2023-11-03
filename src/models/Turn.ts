@@ -10,6 +10,18 @@ export class Turn {
     this.game = game
   }
 
+  getSnapshot (): Turn {
+    const turn = new Turn(this.game)
+    turn.currentTurn = this.currentTurn
+    turn.setCurrentPlayer(this.currentPlayer)
+    return turn
+  }
+
+  setSnapshot (turn: Turn): void {
+    this.currentTurn = turn.currentTurn
+    this.setCurrentPlayer(turn.currentPlayer)
+  }
+
   getCurrentPlayer (): Player {
     return this.currentPlayer
   }

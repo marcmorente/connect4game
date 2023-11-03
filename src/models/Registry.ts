@@ -13,7 +13,7 @@ export class Registry {
 
   reset (): void {
     this.firstPrevious = 0
-    this.mementos = [this.game.createMemento()]
+    this.mementos = []
   }
 
   register (): void {

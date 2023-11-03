@@ -30,7 +30,7 @@ export class Game {
   }
 
   createMemento (): Memento {
-    return new Memento(this)
+    return new Memento(this.board, this.turn)
   }
 
   switchPlayer (): void {
@@ -51,11 +51,7 @@ export class Game {
 
   setPlayers (mode: number): void {
     this.players = this.modes[mode]
-    this.setCurrentPlayer(this.players[0])
-  }
-
-  setCurrentPlayer (player: Player): void {
-    this.turn.setCurrentPlayer(player)
+    this.turn.setCurrentPlayer(this.players[0])
   }
 
   isInvalidMode (mode: number): boolean {

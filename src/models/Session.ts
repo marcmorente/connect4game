@@ -25,6 +25,10 @@ export class Session {
     this.state.next()
   }
 
+  next (): void {
+    this.registry.register()
+  }
+
   getValueState (): number {
     return this.state.getValueState()
   }
@@ -67,13 +71,11 @@ export class Session {
 
   undo (): void {
     this.registry.undo()
+    this.game.switchPlayer()
   }
 
   redo (): void {
     this.registry.redo()
-  }
-
-  next (): void {
-    this.registry.register()
+    this.game.switchPlayer()
   }
 }

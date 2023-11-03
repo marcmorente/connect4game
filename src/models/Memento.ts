@@ -1,23 +1,19 @@
-import { type Game } from './Game'
-import { type Player } from './Player'
+import { type Board } from './Board'
 import { type Token } from './Token'
+import { type Turn } from './Turn'
 
 export class Memento {
   private readonly boardSnapshot: Token[][]
-  private readonly currentPlayer: Player
+  private readonly turnSnapshot: Turn
 
-  constructor (private readonly game: Game) {
-    this.boardSnapshot = this.game.getBoard().getSnapshot()
-    this.currentPlayer = this.game.getCurrentPlayer()
+  constructor (private readonly board: Board, private readonly turn: Turn) {
+    this.boardSnapshot = this.board.getSnapshot()
+    this.turnSnapshot = this.turn.getSnapshot()
+    console.log('Memento created', this.turnSnapshot.getCurrentPlayer())
   }
 
   restore (): void {
-    this.game.getBoard().setSnapshot(this.boardSnapshot)
-    if (this.game.getCurrentPlayer() !== this.currentPlayer) {
-      this.game.switchPlayer()
-    }
-    if (this.currentPlayer !== undefined) {
-      this.game.setCurrentPlayer(this.currentPlayer)
-    }
+    this.board.setSnapshot(this.boardSnapshot)
+    this.turn.setSnapshot(this.turnSnapshot)
   }
 }
