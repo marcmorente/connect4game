@@ -19,7 +19,7 @@ export class StartView {
       mode = await this.getMode()
     } while (this.session.isInvalidMode(mode))
     this.session.setPlayers(mode)
-    this.session.next()
+    this.session.persist()
   }
 
   async getMode (): Promise<number> {

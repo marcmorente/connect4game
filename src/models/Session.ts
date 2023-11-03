@@ -25,7 +25,7 @@ export class Session {
     this.state.next()
   }
 
-  next (): void {
+  persist (): void {
     this.registry.register()
   }
 

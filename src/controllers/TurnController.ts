@@ -10,7 +10,7 @@ export class TurnController {
 
   async control (): Promise<void> {
     await this.turnView.askPlayer()
-    this.session.next()
+    this.session.persist()
     this.session.switchPlayer()
   }
 }
