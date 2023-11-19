@@ -20,7 +20,7 @@ export class PlayController {
   }
 
   undo (): void {
-    this.undoController.undo()
+    this.undoController.control()
   }
 
   redo (): void {
