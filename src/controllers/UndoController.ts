@@ -3,7 +3,7 @@ import { type Session } from '../models/Session'
 export class UndoController {
   constructor (private readonly session: Session) {}
 
-  undo (): void {
+  control (): void {
     this.session.undo()
   }
 
