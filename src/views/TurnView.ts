@@ -22,15 +22,15 @@ export class TurnView implements PlayerVisitor {
   async playHuman (player: Player): Promise<void> {
     TurnState.getInstance().setTurn(TurnState.HUMAN)
     let col: number
-    let wrongColumn: boolean = false
+    let ok
     do {
-      if (wrongColumn) {
+      col = parseInt(await this.cli.promptUser(this.message(player)))
+      ok = this.board.isInvalidColumn(col) || !player.putToken(this.board)
+      if (!ok) {
         this.cli.print(Message.WRONG_COLUMN.toString())
       }
-      col = parseInt(await this.cli.promptUser(this.message(player)))
-      player.setColumn(col)
-      wrongColumn = true
-    } while (this.board.isInvalidColumn(col) || !player.putToken(this.board))
+    } while (!ok)
+    player.setColumn(col)
   }
 
   async playBot (player: Player): Promise<void> {
