@@ -3,11 +3,11 @@ import { Color } from '../../types/Color'
 import { Direction } from '../../types/Direction'
 
 export class Board {
-  private readonly TOKENS_TO_WIN: number = 4
+  public readonly TOKENS_TO_WIN: number = 4
   private tokenGrid: Token[][]
   readonly rows: number = 6
   readonly cols: number = 7
-  private winner: string | null = Color.NULL
+  private winner: Color | null = Color.NULL
 
   constructor () {
     this.tokenGrid = Array.from({ length: this.rows }, () =>
@@ -21,7 +21,7 @@ export class Board {
     )
   }
 
-  checkWinner (): string | null {
+  checkWinner (): Color | null {
     for (const direction of Direction.ALL) {
       if (this.findWinner(direction)) {
         return this.winner
@@ -30,7 +30,7 @@ export class Board {
     return null
   }
 
-  private findWinner (direction: Direction): boolean {
+  findWinner (direction: Direction): boolean {
     for (let row: number = 0; row < this.rows; row++) {
       for (let col: number = 0; col < this.cols; col++) {
         if (this.checkLine(row, col, direction) === this.TOKENS_TO_WIN) {
@@ -42,10 +42,10 @@ export class Board {
     return false
   }
 
-  private checkLine (row: number, col: number, direction: Direction): number {
-    const token: string | null = this.getToken(row, col).getColor()
+  checkLine (row: number, col: number, direction: Direction): number {
+    const token: Color | null = this.getToken(row, col).getColor()
     let consecutiveTokens: number = 0
-    if (token !== Color.BLANK.toString()) {
+    if (token !== Color.BLANK) {
       for (let i: number = 0; i < this.TOKENS_TO_WIN; i++) {
         const nextRow: number = row + i * direction.x
         const nextCol: number = col + i * direction.y
@@ -73,7 +73,7 @@ export class Board {
   isTie (): boolean {
     for (let row: number = 0; row < this.rows; row++) {
       for (let col: number = 0; col < this.cols; col++) {
-        if (this.getToken(row, col).getColor() === Color.BLANK.toString()) {
+        if (this.getToken(row, col).getColor() === Color.BLANK) {
           return false
         }
       }
@@ -85,7 +85,7 @@ export class Board {
     let row: number = this.rows - 1
     while (
       row >= 0 &&
-      this.getToken(row, col).getColor() !== Color.BLANK.toString()
+      this.getToken(row, col).getColor() !== Color.BLANK
     ) {
       row--
     }
@@ -94,7 +94,7 @@ export class Board {
       row < this.rows &&
       col >= 0 &&
       col < this.cols &&
-      this.getToken(row, col).getColor() === Color.BLANK.toString()
+      this.getToken(row, col).getColor() === Color.BLANK
     ) {
       this.tokenGrid[row][col] = token
       return true
@@ -130,12 +130,16 @@ export class Board {
     return result
   }
 
-  getWinner (): string | null {
+  getWinner (): Color | null {
     return this.winner
   }
 
   getToken (row: number, col: number): Token {
     return this.tokenGrid[row][col]
+  }
+
+  getTokenGrid (): Token[][] {
+    return this.tokenGrid
   }
 
   getRows (): number {
