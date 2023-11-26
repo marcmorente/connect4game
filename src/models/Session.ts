@@ -1,3 +1,4 @@
+import { type Color } from '../../types/Color'
 import { type Board } from './Board'
 import { Game } from './Game'
 import { type Player } from './Player'
@@ -41,7 +42,7 @@ export class Session {
     return this.game.getCurrentPlayer()
   }
 
-  getWinner (): string | null {
+  getWinner (): Color | null {
     return this.game.getWinner()
   }
 

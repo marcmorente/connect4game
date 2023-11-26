@@ -45,7 +45,7 @@ export class Game {
     return this.players
   }
 
-  getWinner (): string | null {
+  getWinner (): Color | null {
     return this.board.getWinner()
   }
 

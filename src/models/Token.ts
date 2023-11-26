@@ -5,7 +5,7 @@ export class Token {
     this.color = color
   }
 
-  getColor (): string | null {
-    return this.color?.toString() ?? null
+  getColor (): Color | null {
+    return this.color ?? null
   }
 }
