@@ -21,4 +21,8 @@ export class Logic {
   public getController (): Controller | null | undefined {
     return this.controllers.get(this.session.getValueState())
   }
+
+  public setValueState (stateValue: StateValue): void {
+    this.session.setValueState(stateValue)
+  }
 }

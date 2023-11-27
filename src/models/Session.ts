@@ -4,6 +4,7 @@ import { Game } from './Game'
 import { type Player } from './Player'
 import { Registry } from './Registry'
 import { State } from './State'
+import { type StateValue } from './StateValue'
 
 export class Session {
   private readonly state: State
@@ -24,6 +25,10 @@ export class Session {
 
   nextState (): void {
     this.state.next()
+  }
+
+  setValueState (stateValue: StateValue): void {
+    this.state.setValueState(stateValue)
   }
 
   persist (): void {

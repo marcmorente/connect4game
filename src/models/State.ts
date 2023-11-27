@@ -19,6 +19,10 @@ export class State {
     }
   }
 
+  setValueState (stateValue: StateValue): void {
+    this.stateValue = stateValue
+  }
+
   public getValueState (): StateValue {
     return this.stateValue
   }
