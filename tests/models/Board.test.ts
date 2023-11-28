@@ -11,16 +11,12 @@ describe('Board', () => {
   })
 
   it('should check for a winner in horizontal line', () => {
-    for (let row = 0; row < board.rows; row++) {
-      board.putToken(row, new Token(Color.RED))
-    }
+    addTokensInHorizontal(board)
     expect(board.checkWinner()).toBe(Color.RED)
   })
 
   it('should check for a winner in vertical line', () => {
-    for (let col = 0; col < board.cols; col++) {
-      board.putToken(0, new Token(Color.YELLOW))
-    }
+    addTokensInVertical(board)
     expect(board.checkWinner()).toBe(Color.YELLOW)
   })
 
@@ -74,3 +70,15 @@ describe('Board', () => {
     board.putToken(3, new Token(Color.YELLOW))
   }
 })
+
+function addTokensInVertical (board: Board): void {
+  for (let col = 0; col < board.cols; col++) {
+    board.putToken(0, new Token(Color.YELLOW))
+  }
+}
+
+function addTokensInHorizontal (board: Board): void {
+  for (let row = 0; row < board.rows; row++) {
+    board.putToken(row, new Token(Color.RED))
+  }
+}
