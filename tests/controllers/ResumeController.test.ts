@@ -2,8 +2,6 @@ import { describe, expect, beforeEach, it, jest } from '@jest/globals'
 import { ResumeController } from '../../src/controllers/ResumeController'
 import { Session } from '../../src/models/Session'
 
-jest.mock('../../src/views/ResumeView')
-
 describe('ResumeController', () => {
   let session: Session
   let resumeController: ResumeController
