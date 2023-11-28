@@ -11,9 +11,13 @@ export class ResumeController extends Controller {
   }
 
   async control (): Promise<void> {
-    const resume = await this.resumeView.resume()
+    const resume = await this.resume()
     if (resume) {
       this.session.reset()
     }
+  }
+
+  async resume (): Promise<boolean> {
+    return await this.resumeView.resume()
   }
 }
