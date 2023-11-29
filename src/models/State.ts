@@ -1,7 +1,7 @@
 import { StateValue } from './StateValue'
 
 export class State {
-  private stateValue: StateValue = StateValue.INITIAL
+  stateValue: StateValue = StateValue.INITIAL
 
   constructor () {
     this.reset()
@@ -23,7 +23,7 @@ export class State {
     this.stateValue = stateValue
   }
 
-  public getValueState (): StateValue {
+  getValueState (): StateValue {
     return this.stateValue
   }
 }

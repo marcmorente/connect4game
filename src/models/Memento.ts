@@ -3,8 +3,8 @@ import { type Token } from './Token'
 import { type Turn } from './Turn'
 
 export class Memento {
-  private readonly boardSnapshot: Token[][]
-  private readonly turnSnapshot: Turn
+  boardSnapshot: Token[][]
+  turnSnapshot: Turn
 
   constructor (private readonly board: Board, private readonly turn: Turn) {
     this.boardSnapshot = this.board.getSnapshot()

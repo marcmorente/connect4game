@@ -5,9 +5,9 @@ import { TurnController } from './TurnController'
 import { UndoController } from './UndoController'
 
 export class PlayController {
-  private readonly turnController: TurnController
-  private readonly undoController: UndoController
-  private readonly redoController: RedoController
+  turnController: TurnController
+  undoController: UndoController
+  redoController: RedoController
 
   constructor (private readonly session: Session) {
     this.turnController = new TurnController(this.session)

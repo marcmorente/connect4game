@@ -3,9 +3,9 @@ import { type Game } from './Game'
 import { type Memento } from './Memento'
 
 export class Registry {
-  private mementos!: Memento[]
-  private memento!: Memento
-  private firstPrevious!: number
+  mementos!: Memento[]
+  memento!: Memento
+  firstPrevious!: number
 
   constructor (private readonly game: Game) {
     this.reset()

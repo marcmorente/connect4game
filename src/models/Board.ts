@@ -34,7 +34,7 @@ export class Board {
     for (let row: number = 0; row < this.rows; row++) {
       for (let col: number = 0; col < this.cols; col++) {
         if (this.checkLine(row, col, direction) === this.TOKENS_TO_WIN) {
-          this.winner = this.getToken(row, col).getColor()
+          this.setWinner(this.getToken(row, col).getColor())
           return true
         }
       }
@@ -132,6 +132,10 @@ export class Board {
 
   getWinner (): Color | null {
     return this.winner
+  }
+
+  setWinner (color: Color | null): void {
+    this.winner = color
   }
 
   getToken (row: number, col: number): Token {

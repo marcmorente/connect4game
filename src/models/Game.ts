@@ -25,6 +25,10 @@ export class Game {
     return this.board
   }
 
+  getTurn (): Turn {
+    return this.turn
+  }
+
   setBoard (board: Board): void {
     this.board = board
   }
