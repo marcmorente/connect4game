@@ -1,84 +1,55 @@
 import { describe, expect, beforeEach, it } from '@jest/globals'
-import { Board } from '../../src/models/Board'
-import { Token } from '../../src/models/Token'
 import { Color } from '../../types/Color'
+import { Board } from '../../src/models/Board'
+import { BoardBuilder } from '../builders/BoardBuilder'
+import { Token } from '../../src/models/Token'
 
 describe('Board', () => {
-  let board: Board
+  let boardBuilder: BoardBuilder
 
   beforeEach(() => {
-    board = new Board()
+    boardBuilder = new BoardBuilder()
+  })
+
+  it('should initialize a new board', () => {
+    const board: Board = boardBuilder.buildEmpty()
+    expect(board).toBeInstanceOf(Board)
+  })
+
+  it('should put a token in the board if the column is not full', () => {
+    const board: Board = boardBuilder.buildEmpty()
+    board.putToken(0, new Token(Color.RED))
+    const token: Token = board.getToken(5, 0)
+    expect(token.getColor()).toBe(Color.RED)
+  })
+
+  it('should not put a token in a full column', () => {
+    const board: Board = boardBuilder.buildFullColumn()
+    expect(board.putToken(0, new Token(Color.RED))).toBeFalsy()
   })
 
   it('should check for a winner in horizontal line', () => {
-    addTokensInHorizontal(board)
+    const board: Board = boardBuilder.buildHorizontalWin()
     expect(board.checkWinner()).toBe(Color.RED)
   })
 
   it('should check for a winner in vertical line', () => {
-    addTokensInVertical(board)
+    const board: Board = boardBuilder.buildVerticalWin()
     expect(board.checkWinner()).toBe(Color.YELLOW)
   })
 
   it('should check for a winner in a diagonal line', () => {
-    setupDiagonalWin(board)
+    const board: Board = boardBuilder.buildDiagonalWin()
     expect(board.checkWinner()).toBe(Color.YELLOW)
   })
 
   it('should check for a winner in a reverse diagonal line', () => {
-    setupReverseDiagonalWin(board)
+    const board: Board = boardBuilder.buildReverseDiagonalWin()
     expect(board.checkWinner()).toBe(Color.YELLOW)
   })
 
   it('should result in a tie if the board is full and there is no winner', () => {
-    fillBoardWithoutWinning(board)
+    const board: Board = boardBuilder.buildWithoutWinning()
     expect(board.isTie()).toBe(true)
   })
 })
-
-function addTokensInVertical (board: Board): void {
-  for (let col = 0; col < board.cols; col++) {
-    board.putToken(0, new Token(Color.YELLOW))
-  }
-}
-
-function addTokensInHorizontal (board: Board): void {
-  for (let row = 0; row < board.rows; row++) {
-    board.putToken(row, new Token(Color.RED))
-  }
-}
-
-function fillBoardWithoutWinning (board: Board): void {
-  for (let i = 0; i < board.cols; i++) {
-    const tokenColor = i % 2 === 0 ? Color.RED : Color.YELLOW
-    for (let j = 0; j < board.rows; j++) {
-      board.putToken(i, new Token(tokenColor))
-    }
-  }
-}
-
-function setupDiagonalWin (board: Board): void {
-  board.putToken(0, new Token(Color.YELLOW))
-  board.putToken(1, new Token(Color.RED))
-  board.putToken(1, new Token(Color.YELLOW))
-  board.putToken(2, new Token(Color.RED))
-  board.putToken(2, new Token(Color.RED))
-  board.putToken(2, new Token(Color.YELLOW))
-  board.putToken(3, new Token(Color.RED))
-  board.putToken(3, new Token(Color.RED))
-  board.putToken(3, new Token(Color.RED))
-  board.putToken(3, new Token(Color.YELLOW))
-}
-
-function setupReverseDiagonalWin (board: Board): void {
-  board.putToken(0, new Token(Color.RED))
-  board.putToken(0, new Token(Color.RED))
-  board.putToken(0, new Token(Color.RED))
-  board.putToken(0, new Token(Color.YELLOW))
-  board.putToken(1, new Token(Color.RED))
-  board.putToken(1, new Token(Color.RED))
-  board.putToken(1, new Token(Color.YELLOW))
-  board.putToken(2, new Token(Color.RED))
-  board.putToken(2, new Token(Color.YELLOW))
-  board.putToken(3, new Token(Color.YELLOW))
-}
