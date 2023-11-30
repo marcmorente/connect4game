@@ -1,8 +1,8 @@
 import { describe, expect, beforeEach, it, jest } from '@jest/globals'
 import { Turn } from '../../src/models/Turn'
-import { Game } from '../../src/models/Game'
+import { type Game } from '../../src/models/Game'
 import { type Player } from '../../src/models/Player'
-import { HUMAN_VS_HUMAN } from '../constants/modes'
+import { GameExamples } from '../objectMother/GameExamples'
 
 describe('Turn', () => {
   let turn: Turn
@@ -11,8 +11,7 @@ describe('Turn', () => {
   let player2: Player
 
   beforeEach(() => {
-    game = new Game()
-    game.setPlayers(HUMAN_VS_HUMAN)
+    game = GameExamples.humanVsHuman()
     player1 = game.getPlayers()[0]
     player2 = game.getPlayers()[1]
     turn = new Turn(game)

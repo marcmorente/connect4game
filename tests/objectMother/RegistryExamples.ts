@@ -1,29 +1,18 @@
 /* eslint-disable @typescript-eslint/no-extraneous-class */
+
 import { Registry } from '../../src/models/Registry'
-import { type Memento } from '../../src/models/Memento'
-import { Game } from '../../src/models/Game'
+import { GameExamples } from './GameExamples'
+import { MementoExamples } from './MementoExamples'
 
 export class RegistryExamples {
-  static build (): Registry {
-    const game = new Game()
-    return new Registry(game)
+  static dummy (): Registry {
+    return new Registry(GameExamples.dummy())
   }
 
-  static buildWithMementos (mementos: Memento[]): Registry {
-    const registry = this.build()
-    registry.mementos = mementos
-    return registry
-  }
-
-  static buildWithMemento (memento: Memento): Registry {
-    const registry = this.build()
-    registry.mementos = [memento]
-    return registry
-  }
-
-  static buildWithFirstPrevious (firstPrevious: number): Registry {
-    const registry = this.build()
-    registry.firstPrevious = firstPrevious
+  static withTwoMementos (): Registry {
+    const registry: Registry = this.dummy()
+    registry.mementos = MementoExamples.two()
+    registry.firstPrevious = 1
     return registry
   }
 }

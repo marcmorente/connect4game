@@ -4,26 +4,32 @@ import { Board } from '../../src/models/Board'
 import { Color } from '../../types/Color'
 import { Memento } from '../../src/models/Memento'
 import { BoardExamples } from '../objectMother/BoardExamples'
-import { HUMAN_VS_HUMAN } from '../constants/modes'
+import { HUMAN_VS_BOT, INVALID_MODE, TWO_PLAYERS } from '../constants/modes'
+import { GameExamples } from '../objectMother/GameExamples'
+import { Turn } from '../../src/models/Turn'
+import { type Player } from '../../src/models/Player'
 
 describe('Game', () => {
   let game: Game
+  let player1: Player
+  let player2: Player
 
   beforeEach(() => {
-    game = new Game()
-    game.setPlayers(HUMAN_VS_HUMAN)
+    game = GameExamples.humanVsHuman()
+    player1 = game.getPlayers()[0]
+    player2 = game.getPlayers()[1]
   })
 
   it('should initialize a new game', () => {
     expect(game).toBeInstanceOf(Game)
     expect(game.getBoard()).toBeInstanceOf(Board)
-    expect(game.getPlayers()).toHaveLength(2)
+    expect(game.getTurn()).toBeInstanceOf(Turn)
+    expect(game.getPlayers()).toHaveLength(TWO_PLAYERS)
   })
 
-  it('should set players based on mode', () => {
-    game.setPlayers(HUMAN_VS_HUMAN)
-    expect(game.getPlayers()[0].getColor()).toBe(Color.RED)
-    expect(game.getPlayers()[1].getColor()).toBe(Color.YELLOW)
+  it('should set players based on configured mode', () => {
+    expect(player1.getColor()).toBe(Color.RED)
+    expect(player2.getColor()).toBe(Color.YELLOW)
   })
 
   it('should switch players', () => {
@@ -40,8 +46,11 @@ describe('Game', () => {
   })
 
   it('should check for invalid mode', () => {
-    expect(game.isInvalidMode(3)).toBe(true)
-    expect(game.isInvalidMode(1)).toBe(false)
+    expect(game.isInvalidMode(INVALID_MODE)).toBe(true)
+  })
+
+  it('should check for valid mode', () => {
+    expect(game.isInvalidMode(HUMAN_VS_BOT)).toBe(false)
   })
 
   it('should create a memento', () => {

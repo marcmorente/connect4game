@@ -3,7 +3,9 @@ import { Memento } from '../../src/models/Memento'
 import { type Board } from '../../src/models/Board'
 import { type Turn } from '../../src/models/Turn'
 import { Token } from '../../src/models/Token'
-import { Game } from '../../src/models/Game'
+import { type Game } from '../../src/models/Game'
+import { GameExamples } from '../objectMother/GameExamples'
+import { FIRST_COLUMN } from '../constants/columns'
 
 describe('Memento', () => {
   let memento: Memento
@@ -12,8 +14,7 @@ describe('Memento', () => {
   let game: Game
 
   beforeEach(() => {
-    game = new Game()
-    game.setPlayers(0)
+    game = GameExamples.humanVsHuman()
     board = game.getBoard()
     turn = game.getTurn()
     memento = new Memento(board, turn)
@@ -35,7 +36,7 @@ describe('Memento', () => {
   it('should restore the board and turn to their snapshots', () => {
     const boardSnapshot = board.getSnapshot()
     const turnSnapshot = turn.getSnapshot()
-    board.putToken(0, new Token(turn.getCurrentPlayer().getColor()))
+    board.putToken(FIRST_COLUMN, new Token(turn.getCurrentPlayer().getColor()))
     turn.switchPlayer()
     memento.restore()
     expect(board.getSnapshot()).toEqual(boardSnapshot)
