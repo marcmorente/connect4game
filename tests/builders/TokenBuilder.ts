@@ -22,8 +22,4 @@ export class TokenBuilder {
   buildBlank (): Token {
     return new Token(Color.BLANK)
   }
-
-  determineTokenColor (index: number): Color {
-    return index % 2 === 0 ? Color.RED : Color.YELLOW
-  }
 }
