@@ -3,17 +3,15 @@ import { Game } from '../../src/models/Game'
 import { Board } from '../../src/models/Board'
 import { Color } from '../../types/Color'
 import { Memento } from '../../src/models/Memento'
-import { BoardBuilder } from '../builders/BoardBuilder'
+import { BoardExamples } from '../objectMother/BoardExamples'
 import { HUMAN_VS_HUMAN } from '../constants/modes'
 
 describe('Game', () => {
   let game: Game
-  let boardBuilder: BoardBuilder
 
   beforeEach(() => {
     game = new Game()
     game.setPlayers(HUMAN_VS_HUMAN)
-    boardBuilder = new BoardBuilder()
   })
 
   it('should initialize a new game', () => {
@@ -36,7 +34,7 @@ describe('Game', () => {
 
   it('should check if game is finished', () => {
     expect(game.isFinished()).toBe(false)
-    const board = boardBuilder.buildHorizontalWin()
+    const board = BoardExamples.fillHorizontalWin()
     game.setBoard(board)
     expect(game.isFinished()).toBe(true)
   })
@@ -54,7 +52,7 @@ describe('Game', () => {
   })
 
   it('should set a new board', () => {
-    const newBoard = new Board()
+    const newBoard = BoardExamples.dummy()
     game.setBoard(newBoard)
     expect(game.getBoard()).toBe(newBoard)
   })

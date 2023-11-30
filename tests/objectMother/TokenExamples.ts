@@ -1,25 +1,26 @@
+/* eslint-disable @typescript-eslint/no-extraneous-class */
 import { Token } from '../../src/models/Token'
 import { Color } from '../../types/Color'
 
-export class TokenBuilder {
-  buildParityColor (index: number): Token {
+export class TokenExamples {
+  static parityColor (index: number): Token {
     const color: Color = index % 2 === 0 ? Color.RED : Color.YELLOW
     return new Token(color)
   }
 
-  buildRed (): Token {
+  static red (): Token {
     return new Token(Color.RED)
   }
 
-  buildYellow (): Token {
+  static yellow (): Token {
     return new Token(Color.YELLOW)
   }
 
-  buildNull (): Token {
+  static nullish (): Token {
     return new Token(Color.NULL)
   }
 
-  buildBlank (): Token {
+  static blank (): Token {
     return new Token(Color.BLANK)
   }
 }
